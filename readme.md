@@ -1,6 +1,6 @@
 
 <a href="http://openview.health">
-![Open Health View](./src/assets/icon/setview.svg)
+  <img src="./src/assets/icon/setview.svg" alt="Open Health View">
 </a>
 
 Open View Health is a free app anyone can use to visualize and
