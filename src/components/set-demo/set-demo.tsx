@@ -102,9 +102,9 @@ export class SetDemo {
         <div class="section">
           <h3>🌐 Open source, open data</h3>
           <p>
-            Open View Health is open source app licensed under the MIT license.
+            Open View Health is an <a href="https://github.com/sethealth/openviewhealth">open source app licensed under the MIT license on Github</a>.
             Medical data donated to the platform also becomes part of trully
-            public dataset, available to anyone interested.
+            public dataset, available to anyone interested. Start contributing
           </p>
 
           <h3>🙈 Privacy-aware</h3>
