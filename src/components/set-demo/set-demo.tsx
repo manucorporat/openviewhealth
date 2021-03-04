@@ -153,8 +153,8 @@ export class SetDemo {
             </a>
           </p>
           <p class="disclaimer">
-            <strong>Disclaimer:</strong> Open View Health is not intend to use
-            as medical device, and the site cannot and does not contain
+            <strong>Disclaimer:</strong> Open View Health is not intended to be used
+            as a medical device, and the site cannot and does not contain
             medical/health advice. Any medical/health information is provided
             for general informational and educational purposes only and is not a
             substitute for professional advice.
