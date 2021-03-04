@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "dom",
+      "es2019"
+    ],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "noImplicitAny": false,
+    "jsxFragmentFactory": "Fragment",
+    "target": "es2019",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "jsx": "react",
+    "jsxFactory": "h"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

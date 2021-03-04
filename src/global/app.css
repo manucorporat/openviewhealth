@@ -1,0 +1,99 @@
+/*
+  Global App CSS
+  ----------------------
+  Use this file for styles that should be applied to all components.
+  For example, "font-family" within the "body" selector is a CSS property
+  most apps will want applied to all components.
+
+  Any global CSS variables should also be applied here.
+*/
+
+:root {
+  --set-projection-axial: #0000ff;
+  --set-projection-coronal: #ee2158;
+  --set-projection-sagittal: #21ee7f;
+
+  --set-background: rgba(0, 0, 0, 1);
+  --set-background-shade: rgba(0, 0, 0, 1);
+  --set-background-tint: rgba(0, 0, 0, 1);
+  --set-background-text: rgba(255, 255, 255, 1);
+
+  --set-contrast: rgba(26, 26, 29, 1);
+  --set-contrast-shade: rgba(0, 0, 0, 1);
+  --set-contrast-tint: rgba(0, 0, 0, 1);
+  --set-contrast-text: rgba(255, 255, 255, 1);
+
+  --set-medium: rgba(40, 38, 44, 1);
+  --set-medium-shade: rgb(28, 26, 31);
+  --set-medium-tint: rgb(45, 44, 49);
+  --set-medium-text: rgba(232, 232, 232, 1);
+
+  --set-secondary: rgba(157, 197, 187, 1);
+  --set-secondary-shade: rgb(174, 219, 208);
+  --set-secondary-tint: rgb(128, 161, 153);
+  --set-secondary-text: rgba(0, 0, 0, 1);
+
+  --set-main: rgba(157, 197, 187, 1);
+  --set-main-shade: rgb(174, 219, 208);
+  --set-main-tint: rgb(128, 161, 153);
+  --set-main-text: rgba(0, 0, 0, 1);
+
+  --panel-border: 1px;
+  --panel-background: var(--set-medium);
+  --action-color: rgb(101 34 255);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --set-background: rgba(255, 255, 255, 1);
+    --set-background-shade: rgba(255, 255, 255, 1);
+    --set-background-tint: rgba(255, 255, 255, 1);
+    --set-background-text: rgba(68, 68, 68, 1);
+
+    --set-contrast: rgba(200, 200, 200, 1);
+    --set-contrast-shade: rgba(0, 0, 0, 1);
+    --set-contrast-tint: rgba(0, 0, 0, 1);
+    --set-contrast-text: rgba(255, 255, 255, 1);
+
+    --set-medium: rgb(241, 241, 241);
+    --set-medium-shade: #dadada;
+    --set-medium-tint: #f7f7f7;
+    --set-medium-text: rgba(72, 72, 72, 1);
+
+    --set-secondary: rgba(157, 197, 187, 1);
+    --set-secondary-shade: rgb(95, 138, 126);
+    --set-secondary-tint: rgb(174, 219, 208);
+    --set-secondary-text: #ffffff;
+
+    --set-main: var(--set-secondary);
+    --set-main-shade: var(--set-secondary-shade);
+    --set-main-tint: var(--set-secondary-tint);
+    --set-main-text: var(--set-secondary-text);
+
+    --panel-border: 0;
+    --panel-background: #000000d4;
+  }
+}
+
+set-player:not(.hydrated) {
+  display: none;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background: var(--set-background);
+  color: var(--set-background-text);
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Open View Health",
+  "short_name": "OpenView",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "assets/icon/icon-full.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "background_color": "#ffffff",
+  "theme_color": "#9DC5BB"
+}

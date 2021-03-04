@@ -1,0 +1,192 @@
+:host {
+  display: flex;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 1.25;
+  height: 100%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  user-select: text;
+}
+/*
+p {
+  color: #c1c1c1;
+} */
+
+a {
+  color: var(--set-secondary);
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+ul {
+  font-size: 18px;
+  list-style: none;
+}
+
+.section,
+.section2 {
+  margin-bottom: 40px;
+}
+
+.section {
+  flex: 2;
+  max-width: 500px;
+  min-width: 340px;
+}
+
+.section2 {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+  margin-right: 50px;
+  max-width: 640px;
+  width: 100%;
+}
+.logo {
+  margin: 0 0 10px;
+  width: 200px;
+}
+
+set-file-loader {
+  flex: 1;
+  margin: 30px 0 10px 0;
+  text-align: center;
+  transition: all 200ms ease-in-out;
+}
+
+set-file-loader:hover {
+  background: var(--set-contrast);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px #0000003c;
+}
+
+set-file-loader h2 {
+  margin: 10px 0;
+  font-size: 25px;
+}
+
+set-file-loader p {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.art {
+  width: 100%;
+}
+
+.demos {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.demos button {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 0;
+  background: var(--set-secondary);
+  color: var(--set-secondary-text);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+  min-width: 200px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  transition: transform ease-in-out 200ms;
+}
+
+.demos button[disabled] {
+  cursor: wait;
+}
+
+.demos button:not([disabled]):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px #0000003c;
+}
+
+.demos h2 {
+  font-size: 18px;
+  font-weight: 300;
+  margin: 5px 20px;
+}
+
+.demos .demo-img {
+  display: flex;
+  min-height: 190px;
+  background: black;
+  justify-content: center;
+  align-items: center;
+}
+
+.demos img {
+  width: 100%;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.powered-by {
+  width: 100%;
+  max-width: 150px;
+}
+
+.demos button {
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  :host {
+    padding: 10px 20px;
+  }
+
+  .demos button {
+    max-width: 100%;
+  }
+
+  .demos button:not([disabled]):hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.disclaimer {
+  font-size: 14px;
+}

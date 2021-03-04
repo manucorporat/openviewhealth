@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" class="light">
+  <head>
+    <meta charset="utf-8" />
+    <title>Open View Health - Free and open dicom viewer</title>
+    <meta name="robots" content="noindex" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#9DC5BB" />
+    <meta
+      name="description"
+      content="Open View Health is a free app anyone can use to visualize and securely share their medical data."
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@sethealthtect" />
+    <meta
+      name="twitter:title"
+      content="Open View Health - Open medical images viewer"
+    />
+    <meta
+      name="twitter:description"
+      content="Open View Health is a free app anyone can use to visualize and securely share their medical data."
+    />
+    <meta name="twitter:image" content="/assets/twitter2.png" />
+
+    <script type="module" src="/build/openview.esm.js"></script>
+    <link href="/build/openview.css" rel="stylesheet" />
+    <script
+      async
+      defer
+      data-domain="openview.health"
+      src="https://stats.set.health/js/index.js"
+    ></script>
+    <link rel="apple-touch-icon" href="/assets/icon/icon-full.png" />
+    <link rel="icon" type="image/png" href="/assets/icon/favicon.png" />
+    <link rel="manifest" href="/manifest.json" />
+  </head>
+
+  <body>
+    <set-player></set-player>
+
+    <script>
+      document.body.addEventListener(
+        "wheel",
+        (ev) => {
+          if (ev.ctrlKey) {
+            ev.preventDefault();
+          }
+        },
+        {
+          passive: false,
+        }
+      );
+    </script>
+  </body>
+</html>
