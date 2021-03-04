@@ -19,7 +19,7 @@ npm start
 ### 🌐 Open source, open data
 
 Open View Health is open source app licensed under the MIT license.
-Medical data donated to the platform also becomes part of trully
+Medical data donated to the platform also becomes part of truly
 public dataset, available to anyone interested.
 
 
@@ -33,8 +33,8 @@ never track users.
 
 If you decide to share, your data will be end-to-end encrypted with
 AES256-GCM before it's uploaded. Since the encryption key is
-generated on your device, nobody but you can access it, not even us.{" "}
-<a href="#">Learn more about our end-to-end encryption</a>
+generated on your device, nobody but you can access it, not even us.
+[Learn more about our end-to-end encryption](#)
 
 
 ### 👤 HIPPA Compliant Anonymization
@@ -45,16 +45,14 @@ compromised, it's impossible to trace it back to an specific person,
 time or location.
 
 Names, locations, dates, annotations, all metadata is removed
-following the strictest guidelines of the{" "}
-<a href="https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html">
-  HIPAA Privacy Rule's De-Identification Standard
-</a>
+following the strictest guidelines of the
+[HIPAA Privacy Rule's De-Identification Standard](https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html)
 
 
 ## Disclaimer
 
-Open View Health is not intend to use
-as medical device, and the site cannot and does not contain
+Open View Health is not intended to be used
+as a medical device, and the site cannot and does not contain
 medical/health advice. Any medical/health information is provided
 for general informational and educational purposes only and is not a
 substitute for professional advice.
