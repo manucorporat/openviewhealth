@@ -330,6 +330,15 @@ set-grid-panel {
   height: calc(100% - 42px);
 }
 
+set-view-slices::part(range) {
+  height: 40px;
+  bottom: 0;
+}
+
+set-pane:not(.selected) set-view-slices::part(range) {
+  display: none;
+}
+
 set-pane {
   border-width: var(--panel-border);
   border-radius: 4px;
@@ -369,6 +378,7 @@ set-pane.type-custom::part(fullscreen-button) {
   margin: 8px 0;
   width: 100%;
   font-weight: 800;
+  flex-shrink: 0;
   --background: var(--set-medium);
 }
 
@@ -472,7 +482,7 @@ set-browser::part(item-image) {
   }
 
   .editor {
-    height: 97% !important;
+    height: 93% !important;
   }
 
   set-pane::part(fullscreen-button) {
