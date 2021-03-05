@@ -10,21 +10,25 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	origin := r.Header.Get("Origin")
-	if isValidOrigin(origin) {
-		client := sethealth.New()
-		token, err := client.GetToken()
-		if err != nil {
-			fmt.Println(err)
-			w.WriteHeader(500)
-			return
-		}
+	if r.Method == "POST" {
+		origin := r.Header.Get("Origin")
+		if isValidOrigin(origin) {
+			client := sethealth.New()
+			token, err := client.GetToken()
+			if err != nil {
+				fmt.Println(err)
+				w.WriteHeader(500)
+				return
+			}
 
-		w.Header().Add("Access-Control-Allow-Origin", origin)
-		w.WriteHeader(200)
-		json.NewEncoder(w).Encode(token)
+			w.Header().Add("Access-Control-Allow-Origin", origin)
+			w.WriteHeader(200)
+			json.NewEncoder(w).Encode(token)
+		} else {
+			w.WriteHeader(401)
+		}
 	} else {
-		w.WriteHeader(401)
+		w.WriteHeader(404)
 	}
 }
 
