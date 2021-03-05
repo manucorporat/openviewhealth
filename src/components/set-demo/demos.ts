@@ -1,13 +1,5 @@
 import { MedSourceRaw, MedSourceNifty, MedSourceNRRD } from "@sethealth/core";
 
-// export const SCAN = ((): MedSourceNRRD => {
-//   return {
-//     type: "nrrd",
-//     input:
-//       "https://public1-eu-sethealth.ams3.cdn.digitaloceanspaces.com/public/torax2.nrrd.gz",
-//   };
-// })();
-
 export const ANKLE: MedSourceNRRD = {
   type: "nrrd",
   input: "https://public.sethealth.app/ankle.nrrd.gz",
