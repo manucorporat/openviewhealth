@@ -45,18 +45,11 @@ export class SetDemo {
     return (
       <Host>
         <div class="section2">
-          <picture>
-            <source
-              srcSet="/assets/icon/setview.svg"
-              media="(prefers-color-scheme: light)"
-            />
-            <source srcSet="/assets/icon/setview-dark.svg" />
-            <img
-              class="logo"
-              src="/assets/icon/setview.svg"
-              alt="Open View Health logo"
-            />
-          </picture>
+          <img
+            class="logo"
+            src="/assets/icon/setview.svg"
+            alt="Open View Health logo"
+          />
           <p>
             Open View Health is a free app anyone can use to visualize and
             securely share their medical data. A modern DICOM visualizer powered
@@ -141,18 +134,11 @@ export class SetDemo {
           </p>
           <p>
             <a href="https://set.health">
-              <picture>
-                <source
-                  srcSet="/assets/PoweredBy-Dark.svg"
-                  media="(prefers-color-scheme: light)"
-                />
-                <source srcSet="/assets/PoweredBy-Light.svg" />
-                <img
-                  class="powered-by"
-                  src="/assets/PoweredBy-Light.svg"
-                  alt="example"
-                />
-              </picture>
+              <img
+                class="powered-by"
+                src="/assets/PoweredBy-Dark.svg"
+                alt="Powered by Sethealth"
+              />
             </a>
           </p>
           <p class="disclaimer">

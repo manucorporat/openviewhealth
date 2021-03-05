@@ -306,13 +306,7 @@ export class SetPlayer {
             target="_blank"
             rel="noopener"
           >
-            <picture>
-              <source
-                srcSet="/assets/logo-small-dark.svg"
-                media="(prefers-color-scheme: dark)"
-              />
-              <img src="/assets/logo-small.svg" alt="Sethealth logo" />
-            </picture>
+            <img src="/assets/logo-small.svg" alt="Sethealth logo" />
           </a>
         </div>
 
