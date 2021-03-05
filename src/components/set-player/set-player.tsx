@@ -116,7 +116,7 @@ export class SetPlayer {
   async loadToken() {
     try {
       const token = await (
-        await fetch("https://hub.sethealth.app/api/token")
+        await fetch("https://openview.health/api/token")
       ).json();
       await sethealth.auth.setAccessToken(token.token);
     } catch (e) {

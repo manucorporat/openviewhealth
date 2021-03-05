@@ -10,18 +10,30 @@ import (
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-
-	client := sethealth.New()
-	token, err := client.GetToken()
-	if err != nil {
-		fmt.Println(err)
-		w.WriteHeader(500)
-		return
-	}
 	origin := r.Header.Get("Origin")
-	if strings.HasPrefix(origin, "http://localhost:") {
+	if isValidOrigin(origin) {
+		client := sethealth.New()
+		token, err := client.GetToken()
+		if err != nil {
+			fmt.Println(err)
+			w.WriteHeader(500)
+			return
+		}
+
 		w.Header().Add("Access-Control-Allow-Origin", origin)
+		w.WriteHeader(200)
+		json.NewEncoder(w).Encode(token)
+	} else {
+		w.WriteHeader(401)
 	}
-	w.WriteHeader(200)
-	json.NewEncoder(w).Encode(token)
+}
+
+func isValidOrigin(origin string) bool {
+	if origin == "https://openview.health" {
+		return true
+	}
+	if strings.HasPrefix(origin, "http://localhost:") {
+		return true
+	}
+	return false
 }
