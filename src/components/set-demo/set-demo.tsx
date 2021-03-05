@@ -102,8 +102,11 @@ export class SetDemo {
         <div class="section">
           <h3>🌐 Open source, open data</h3>
           <p>
-            Open View Health is an <a href="https://github.com/sethealth/openviewhealth">open source app licensed under the MIT license on Github</a>.
-            Medical data donated to the platform also becomes part of trully
+            Open View Health is an{" "}
+            <a href="https://github.com/sethealth/openviewhealth">
+              open source app licensed under the MIT license on Github
+            </a>
+            . Medical data donated to the platform also becomes part of trully
             public dataset, available to anyone interested. Start contributing
           </p>
 
@@ -153,8 +156,8 @@ export class SetDemo {
             </a>
           </p>
           <p class="disclaimer">
-            <strong>Disclaimer:</strong> Open View Health is not intended to be used
-            as a medical device, and the site cannot and does not contain
+            <strong>Disclaimer:</strong> Open View Health is not intended to be
+            used as a medical device, and the site cannot and does not contain
             medical/health advice. Any medical/health information is provided
             for general informational and educational purposes only and is not a
             substitute for professional advice.
