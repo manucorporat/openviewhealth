@@ -55,7 +55,6 @@ const MENU = [
 export class SetPlayer {
   @Element() el!: HTMLSetPlayerElement;
 
-  @State() showSelection = false;
   @State() selectedHandlers: MedHandler[] = [];
   @State() handlers: MedHandler[] = [];
   @State() views: PanelView[] = [];
@@ -208,7 +207,7 @@ export class SetPlayer {
     const handlers = ev.detail.filter((i) => i.type === "med") as MedHandler[];
     this.selectedHandlers = handlers;
     const shareButton = this.el.shadowRoot!.querySelector(".share-button");
-    if (shareButton && this.selectedHandlers.length > 1) {
+    if (shareButton) {
       shareButton.classList.add("share-jump");
       setTimeout(() => {
         shareButton.classList.remove("share-jump");
@@ -264,10 +263,14 @@ export class SetPlayer {
   }
 
   private sharePanel = async () => {
-    if (!this.showSelection) {
-      this.showSelection = true;
-    }
     if (this.selectedHandlers.length === 0) {
+      const browser = this.el.shadowRoot!.querySelector("set-browser");
+      if (browser) {
+        browser.classList.add("share-failed");
+        setTimeout(() => {
+          browser.classList.remove("share-failed");
+        }, 100);
+      }
       return;
     }
     await createAlertModal(async (onProgress) => {
@@ -341,8 +344,6 @@ export class SetPlayer {
   }
 
   private renderLeftMenu() {
-    const showShareButton = this.handlers.length > 0;
-
     if (this.sideMenu === "browser") {
       return (
         <div class="side-menu" key="side-menu">
@@ -357,7 +358,7 @@ export class SetPlayer {
               </button>
             </div>
             <set-browser
-              selectionType={this.showSelection ? "multiple" : undefined}
+              selectionType="multiple"
               items={this.handlers}
               onSetChange={this.onSelectionChanged}
               onSetClick={this.onOpenVolume}
@@ -375,10 +376,10 @@ export class SetPlayer {
             </set-browser>
           </set-file-loader>
           <button
-            disabled={!showShareButton}
             class={{
               "share-button": true,
-              "share-visible": showShareButton,
+              "share-visible": this.handlers.length > 0,
+              "share-disabled": this.selectedHandlers.length === 0,
             }}
             onClick={this.sharePanel}
           >
@@ -422,9 +423,13 @@ export class SetPlayer {
                 "new-line",
                 "new-spline",
                 "new-point",
+                "pan",
+                "zoom"
               ]}
             />
-            <button onClick={this.toggleSide} class="side-menu-button">
+            <button
+              onClick={this.toggleSide}
+              class="side-menu-button">
               {this.showToolbar ? (
                 <>
                   <set-icon name="close" />

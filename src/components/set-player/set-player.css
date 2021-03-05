@@ -404,8 +404,22 @@ set-pane.type-custom::part(fullscreen-button) {
   transition: transform ease-in-out 300ms;
 }
 
+.share-disabled {
+  opacity: 0.9;
+  background: #a889fd;
+  cursor: pointer;
+}
+
 .share-visible {
   transform: translateY(0);
+}
+
+set-browser::part(checkbox) {
+  transition: all 100ms ease-in;
+}
+
+.share-failed::part(checkbox) {
+  transform: scale(1.25);
 }
 
 .share-jump {
@@ -433,6 +447,9 @@ set-browser {
   --checkbox-size: 26px;
   --checkbox-color: var(--action-color);
   --checkbox-tick-color: #ffffff;
+
+  --item-selected-color: #000000;
+  --item-selected-background: #cadad6;
 }
 
 set-browser::part(item-image) {
