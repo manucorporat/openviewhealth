@@ -424,12 +424,10 @@ export class SetPlayer {
                 "new-spline",
                 "new-point",
                 "pan",
-                "zoom"
+                "zoom",
               ]}
             />
-            <button
-              onClick={this.toggleSide}
-              class="side-menu-button">
+            <button onClick={this.toggleSide} class="side-menu-button">
               {this.showToolbar ? (
                 <>
                   <set-icon name="close" />
