@@ -1,5 +1,5 @@
 import { Component, h, Host, State } from "@stencil/core";
-import { COVID19, MANIX, SCAN, ANKLE } from "./demos";
+import { MANIX, ANKLE } from "./demos";
 
 const DEMOS = [
   {
@@ -9,19 +9,20 @@ const DEMOS = [
     loaded: false,
     source: ANKLE,
   },
-  {
-    title: "Torax",
-    description: "Generic torax tomography from NIH dataset",
-    image: "/assets/demos/torax.png",
-    source: SCAN,
-    loaded: false,
-  },
+  // {
+  //   title: "Torax",
+  //   description: "Generic torax tomography from NIH dataset",
+  //   image: "/assets/demos/torax.png",
+  //   source: SCAN,
+  //   loaded: false,
+  // },
   {
     title: "Covid19",
     description:
       "Full torax tomography of a COVID19 positive patient, showing the pneumonia caused by SARS-CoV-2",
     image: "/assets/demos/covid19.png",
-    source: COVID19,
+    source:
+      "sethealth://meta-v1/md-5678418456739840_JLdoaPqvh9rcJmznFa4j7FPrLyP9TxlYuvanTvxx4g4=",
     loaded: false,
   },
   {

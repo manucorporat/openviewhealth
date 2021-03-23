@@ -5,8 +5,10 @@ export const ANKLE: MedSourceNRRD = {
   input: "https://public.sethealth.app/ankle.nrrd.gz",
 };
 
-export const SCAN =
-  "sethealth://meta-v1/md-5712033689370624_nZt8+1vNzIM7YZ+lNHJLrZZuLL6S37KBjM7XN8HH38k=";
+export const SCAN: MedSourceNRRD = {
+  type: "nrrd",
+  input: "https://sethealth.b-cdn.net/torax.nrrd.gz",
+};
 
 export const MANIX = ((): MedSourceRaw => {
   const input = "https://public.sethealth.app/manix.raw.gz";
