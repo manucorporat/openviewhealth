@@ -419,7 +419,7 @@ export class SetPlayer {
               tools={[
                 "contrast",
                 "crop",
-                "cross-hair",
+                "crosshair",
                 "new-line",
                 "new-spline",
                 "new-point",
