@@ -1,7 +1,12 @@
 h1 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 15px;
+  color: #737373;
 }
 
 .alert-container {
@@ -30,13 +35,67 @@ h1 {
   min-width: 162px;
 }
 
+.donated-title {
+  text-align: center;
+}
+
+.donated-title h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.donate-panel {
+  text-align: center;
+  background: #ebebeb;
+  border-radius: 10px;
+  padding: 30px 30px;
+  margin-top: 40px;
+}
+
+.donate-panel h2 {
+  margin: 0 auto;
+  max-width: 300px;
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.donate-panel p {
+  color: #737373;
+  margin: 25px 0;
+  font-size: 16px;
+}
+
+.donate-partners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.donate-partners > img {
+  flex: 1;
+  max-width: 100px;
+}
+
+.donate-btn {
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 25px;
+  padding: 10px;
+}
+
+.donate-thanks {
+  font-size: 20px;
+  font-weight: 700;
+}
+
 .share-btn set-icon {
   font-size: 1.5em;
   margin-right: 8px;
-}
-
-p {
-  font-size: 15px;
 }
 
 set-progress-bar {
@@ -45,8 +104,8 @@ set-progress-bar {
 }
 
 code {
-  background: var(--set-medium);
-  color: var(--set-medium-text);
+  background: black;
+  color: #c1c1c1;
   padding: 8px;
   width: 100%;
   display: block;

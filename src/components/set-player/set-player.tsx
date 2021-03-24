@@ -273,12 +273,23 @@ export class SetPlayer {
       }
       return;
     }
-    await createAlertModal(async (onProgress) => {
+    const onShare = async (onProgress) => {
       const progress = await sethealth.utils.createProgress(onProgress);
       const finalUpload = progress.source(1);
       const panelState = await this.getState(progress.source(10));
       return sharePanel(panelState, finalUpload);
-    });
+    };
+    const onDonate = async () => {
+      const caseID = await sethealth.dataset.allocateCaseID();
+      const images = await sethealth.dataset.get("ds-5741876732755968");
+      const entries = this.selectedHandlers.map((handler) => ({
+        case: caseID,
+        type: "image",
+        value: handler,
+      }));
+      await images.append(entries);
+    };
+    await createAlertModal(onShare, onDonate);
   };
 
   private viewFocusChanged = (ev: CustomEvent<ViewFocusDetail>) => {
