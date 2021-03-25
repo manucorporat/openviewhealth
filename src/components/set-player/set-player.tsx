@@ -568,7 +568,7 @@ const loadPanelVersion3 = async (
 
 const isWorkspace3D = (workspace?: Workspace) => {
   const z = workspace?.med?.volume?.dimensions.z ?? 0;
-  return z > 5;
+  return z > 25;
 };
 
 const createView = async (handler: MedHandler): Promise<PanelView> => {
