@@ -245,8 +245,8 @@ export class SetPlayer {
       workspaces,
       {
         bucket: {
-          med: "bu-5659406649786368",
-          geometry: "bu-5694459043905536",
+          med: "bu-5677525640413184",
+          geometry: "bu-5683224659361792",
         },
         anonymize: {
           keepStructuredReport: true,
