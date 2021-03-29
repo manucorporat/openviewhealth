@@ -244,6 +244,10 @@ export class SetPlayer {
     const serializableWorkspaces = await sethealth.workspace.ensureSources(
       workspaces,
       {
+        bucket: {
+          med: "bu-5659406649786368",
+          geometry: "bu-5694459043905536",
+        },
         anonymize: {
           keepStructuredReport: true,
           keepDescriptions: true,
