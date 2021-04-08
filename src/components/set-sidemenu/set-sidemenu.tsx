@@ -257,18 +257,24 @@ const tool3D = (
               header="Ambient"
               max={255}
               value={controller.ambientColor[3]}
-              onSetChange={(ev) => (controller.ambientColor = [255, 255, 255, ev.detail])}
+              onSetChange={(ev) =>
+                (controller.ambientColor = [255, 255, 255, ev.detail])
+              }
             />
             <set-input-range
               header="Diffuse"
               max={255}
               value={controller.diffuseColor[3]}
-              onSetChange={(ev) => (controller.diffuseColor = [255, 255, 255, ev.detail])}
+              onSetChange={(ev) =>
+                (controller.diffuseColor = [255, 255, 255, ev.detail])
+              }
             />
             <set-input-range
               header="Specular"
               value={controller.specularColor[3]}
-              onSetChange={(ev) => (controller.specularColor = [255, 255, 255, ev.detail])}
+              onSetChange={(ev) =>
+                (controller.specularColor = [255, 255, 255, ev.detail])
+              }
             />
           </div>
         </section>
