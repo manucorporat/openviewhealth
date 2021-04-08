@@ -256,7 +256,7 @@ const tool3D = (
             <set-input-range
               header="Ambient"
               max={255}
-              value={controller.ambientColor[3]}
+              value={controller.ambientColor[3] as any}
               onSetChange={(ev) =>
                 (controller.ambientColor = [255, 255, 255, ev.detail])
               }
@@ -264,14 +264,14 @@ const tool3D = (
             <set-input-range
               header="Diffuse"
               max={255}
-              value={controller.diffuseColor[3]}
+              value={controller.diffuseColor[3] as any}
               onSetChange={(ev) =>
                 (controller.diffuseColor = [255, 255, 255, ev.detail])
               }
             />
             <set-input-range
               header="Specular"
-              value={controller.specularColor[3]}
+              value={controller.specularColor[3] as any}
               onSetChange={(ev) =>
                 (controller.specularColor = [255, 255, 255, ev.detail])
               }
