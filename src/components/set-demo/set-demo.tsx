@@ -82,6 +82,7 @@ export class SetDemo {
             ))}
           </div>
           <set-file-loader
+            loadMed
             onSetMedLoad={() => {
               const player = document.querySelector("set-player");
               if (player) {
