@@ -280,7 +280,7 @@ export class SetPlayer {
     const onShare = async (onProgress) => {
       const progress = await sethealth.utils.createProgress(onProgress);
       const finalUpload = progress.source(1);
-      const panelState = await this.getState(progress.source(10));
+      const panelState = await this.getState(progress.source(20));
       return sharePanel(panelState, finalUpload);
     };
     const onDonate = async () => {
