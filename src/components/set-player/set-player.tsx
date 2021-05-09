@@ -22,6 +22,7 @@ import {
   ViewState,
   AsyncResult,
   MedSource,
+  FileResource,
 } from "@sethealth/core";
 import { createAlertModal } from "./alert";
 import { reactiveMedia } from "../../utils";
@@ -296,6 +297,48 @@ export class SetPlayer {
     await createAlertModal(onShare, onDonate);
   };
 
+  private downloadImages = async () => {
+    if (this.selectedHandlers.length === 0) {
+      const browser = this.el.shadowRoot!.querySelector("set-browser");
+      if (browser) {
+        browser.classList.add("share-failed");
+        setTimeout(() => {
+          browser.classList.remove("share-failed");
+        }, 100);
+      }
+      return;
+    }
+
+    this.loadingProcess = 1.0;
+    this.loadingText = "Packing files...";
+    try {
+      const files: FileResource[] = [];
+      let i = 0;
+      for (const handler of this.selectedHandlers) {
+        const { data, extension } = await handler.serialize({
+          format: "original",
+        });
+        files.push({
+          path: `${i++}${extension}`,
+          data,
+        });
+      }
+      if (files.length === 1) {
+        const h = await sethealth.utils.saveAs(files[0].path);
+        h(files[0].data);
+      } else {
+        await sethealth.utils.saveZipAs({
+          filename: "export-sethealth",
+          files,
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+    this.loadingText = undefined;
+    this.loadingProcess = 0;
+  };
+
   private viewFocusChanged = (ev: CustomEvent<ViewFocusDetail>) => {
     this.selectedController = ev.detail.controller;
   };
@@ -399,9 +442,23 @@ export class SetPlayer {
             onClick={this.sharePanel}
           >
             <set-icon name="share"></set-icon>
-            {this.selectedHandlers.length === 0
-              ? "Select to share"
-              : `Share ${this.selectedHandlers.length} docs`}
+            <span>
+              {this.selectedHandlers.length === 0
+                ? "Select to share"
+                : `Share ${this.selectedHandlers.length} docs`}
+            </span>
+          </button>
+
+          <button
+            class={{
+              "share-button": true,
+              "download-button": true,
+              "share-visible": this.handlers.length > 0,
+              "share-disabled": this.selectedHandlers.length === 0,
+            }}
+            onClick={this.downloadImages}
+          >
+            <set-icon name="download"></set-icon>
           </button>
         </div>
       );
@@ -572,7 +629,7 @@ const loadPanelVersion3 = async (
 
 const isWorkspace3D = (workspace?: Workspace) => {
   const z = workspace?.med?.volume?.dimensions.z ?? 0;
-  return z > 25;
+  return z > 40;
 };
 
 const createView = async (handler: MedHandler): Promise<PanelView> => {
@@ -603,7 +660,6 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
           type: "set-view-slices",
           state: {
             workspace,
-            projection: "axial",
             showRange: isTouch,
           },
         },

@@ -385,29 +385,42 @@ set-pane.type-custom::part(fullscreen-button) {
 .share-button {
   position: absolute;
   bottom: 15px;
-  left: 5px;
-  right: 5px;
+  left: 10px;
   height: 60px;
+  width: 140px;
   border-radius: 200px;
   border: 0;
   background: var(--action-color);
   color: white;
-  box-shadow: 0px 4px 13px 0px #00000066;
+  box-shadow: 0px 4px 10px 0px #00000066;
   margin: auto;
   padding: 0 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  font-size: 17px;
+  font-size: 16px;
+  text-align: start;
   transform: translateY(100px);
   transition: transform ease-in-out 300ms;
+}
+
+.download-button {
+  left: auto;
+  width: 60px;
+  padding: 0;
+  right: 10px;
+  background: rgb(56 56 56);
 }
 
 .share-disabled {
   opacity: 0.9;
   background: #a889fd;
   cursor: pointer;
+}
+
+.download-button.share-disabled {
+  background: #828282;
 }
 
 .share-visible {
@@ -429,6 +442,11 @@ set-browser::part(checkbox) {
 .share-button set-icon {
   font-size: 30px;
   margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.download-button set-icon {
+  margin-right: 0;
 }
 
 @keyframes appear {

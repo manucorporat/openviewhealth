@@ -91,7 +91,7 @@ export const createAlertModal = async (
                 <h2>Together we are making medical data open</h2>
                 <p>
                   We are working with top medical institutions to create the
-                  world-first trully open and diverse dataset of medical data.
+                  world-first truly open and diverse dataset of medical data.
                   Allowing anyone to innovate. <a href="#">Learn more</a>.
                 </p>
                 {/* <div class="donate-partners">

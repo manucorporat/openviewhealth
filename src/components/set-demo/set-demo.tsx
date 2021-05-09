@@ -101,7 +101,7 @@ export class SetDemo {
             <a href="https://github.com/sethealth/openviewhealth">
               open source app licensed under the MIT license on Github
             </a>
-            . Medical data donated to the platform also becomes part of trully
+            . Medical data donated to the platform also becomes part of truly
             public dataset, available to anyone interested. Start contributing
           </p>
 
