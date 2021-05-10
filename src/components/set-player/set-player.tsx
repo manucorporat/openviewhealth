@@ -684,7 +684,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
           state: {
             workspace,
             showGeometry: true,
-            showAxes: true,
+            showAxes: false,
           },
         },
         {

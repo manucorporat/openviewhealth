@@ -317,14 +317,13 @@ const tool3D = (
                   (m) => !m.disabled
                 );
                 materials.map(async (material) => {
-                  const geometry = await workspace.med!.volume!.getGeometryFromIso(
-                    {
+                  const geometry =
+                    await workspace.med!.volume!.getGeometryFromIso({
                       name: material.name,
                       from: material.from,
                       to: material.to,
                       box: workspace.box,
-                    }
-                  );
+                    });
                   workspace.geometries = [...workspace.geometries, geometry];
                 });
               }
@@ -409,13 +408,12 @@ const toolLayers = (
                   points.push(...s.points);
                 }
               });
-              const geometry = await workspace.med!.volume!.getGeometryFromRegionGrow(
-                {
+              const geometry =
+                await workspace.med!.volume!.getGeometryFromRegionGrow({
                   seedPoints: points,
                   box: workspace.box,
                   multiplier: 1.25,
-                }
-              );
+                });
               workspace.geometries = [...workspace.geometries, geometry];
             }}
           >
