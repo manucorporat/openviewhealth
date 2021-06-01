@@ -135,7 +135,7 @@ export class SetDemo {
             </a>
           </p>
           <p>
-            <a href="https://set.health">
+            <a href="https://set.health?utm_medium=referral&utm_source=OpenView&utm_campaign=PoweredBy">
               <img
                 class="powered-by"
                 src="/assets/PoweredBy-Dark.svg"

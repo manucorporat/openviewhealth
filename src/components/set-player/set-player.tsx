@@ -361,7 +361,7 @@ export class SetPlayer {
       <header>
         <div class="header-top">
           <a
-            href="https://set.health?openviewhealth"
+            href="https://set.health?utm_medium=referral&utm_source=OpenView&utm_campaign=PoweredBy"
             class="logo"
             title="Sethealth"
             target="_blank"
