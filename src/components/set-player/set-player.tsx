@@ -405,7 +405,7 @@ export class SetPlayer {
     if (this.sideMenu === "browser") {
       return (
         <div class="side-menu" key="side-menu">
-          <set-file-loader button={false} class="file-loader-browser">
+          <set-file-loader buttonAction="none" class="file-loader-browser">
             <div class="section-header">
               <h2>Browser</h2>
               <button class="section-header-button" onClick={this.openFolder}>
