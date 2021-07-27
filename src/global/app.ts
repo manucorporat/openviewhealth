@@ -1,7 +1,7 @@
 import { initialize } from "@sethealth/core";
 
 export default () => {
-  initialize("pub_sethealth_NFpn4YKgwUzesPjH5jCStCTmKRIwrWxCuMbiMxGOLJE=", {
+  initialize("pub_openview-health_MOFKawZuosvcxmtiPJf2ABVMMAVQD7Rq304qQElQ258=", {
     watermark: false,
   });
 };
