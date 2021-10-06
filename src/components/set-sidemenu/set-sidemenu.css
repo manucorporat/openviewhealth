@@ -214,3 +214,29 @@ label input {
   background: #373942;
   border-color: var(--set-secondary);
 }
+
+set-view-report {
+  padding: 0;
+}
+
+set-view-report::part(header) {
+  display: none;
+}
+
+set-view-report::part(basic) {
+  background: transparent;
+  padding: 0;
+}
+
+set-view-report::part(title) {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+set-view-report::part(value) {
+  display: block;
+}
+
+set-view-report::part(structured-report) {
+  display: none;
+}

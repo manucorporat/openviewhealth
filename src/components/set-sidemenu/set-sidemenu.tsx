@@ -11,7 +11,7 @@ import {
   State,
 } from "@stencil/core";
 
-import { Point, Workspace } from "@sethealth/core";
+import { Workspace } from "@sethealth/core";
 
 @Component({
   tag: "set-sidemenu",
@@ -81,6 +81,7 @@ export class SetSidemenu {
       <Host>
         <div class="toolbar-content" key={`${this.key}`}>
           {this.renderTool(constroller, this.workspace)}
+          <set-view-report workspace={this.workspace}></set-view-report>
         </div>
       </Host>
     );
@@ -205,7 +206,7 @@ const tool3DGeometry = (
 
 const tool3D = (
   controller: HTMLSetViewVolumetricElement,
-  workspace: Workspace
+  _workspace: Workspace
 ) => {
   const ref = getRenderingRef();
   const colorMaps = controller.shader === "max-intensity" ? "all" : "materials";
@@ -271,6 +272,7 @@ const tool3D = (
             />
             <set-input-range
               header="Specular"
+              max={255}
               value={controller.specularColor[3] as any}
               onSetChange={(ev) =>
                 (controller.specularColor = [255, 255, 255, ev.detail])
@@ -303,7 +305,7 @@ const tool3D = (
           </div>
         </section>
       )}
-      <section>
+      {/* <section>
         <h1>
           <set-icon name="color-filter" />
           Geometry
@@ -332,7 +334,7 @@ const tool3D = (
             Generate geometry
           </button>
         </div>
-      </section>
+      </section> */}
     </Fragment>
   );
 };
@@ -382,7 +384,7 @@ const toolLayers = (
           </div>
         </div>
       </section>
-      <section>
+      {/* <section>
         <h1>
           <set-icon name="star-half" />
           Segmentation
@@ -420,7 +422,7 @@ const toolLayers = (
             Perform segmentation
           </button>
         </div>
-      </section>
+      </section> */}
     </Fragment>
   );
 };

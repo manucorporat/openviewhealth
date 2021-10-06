@@ -23,9 +23,9 @@
   --set-contrast-tint: rgba(0, 0, 0, 1);
   --set-contrast-text: rgba(255, 255, 255, 1);
 
-  --set-medium: rgb(241, 241, 241);
-  --set-medium-shade: #dadada;
-  --set-medium-tint: #f7f7f7;
+  --set-medium: #eaeaea;
+  --set-medium-shade: rgb(241, 241, 241);
+  --set-medium-tint: transparent;
   --set-medium-text: rgba(72, 72, 72, 1);
 
   --set-main: var(--set-secondary);

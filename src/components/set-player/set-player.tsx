@@ -18,7 +18,6 @@ import {
   SlicesAction,
   ItemHandler,
   SerializableWorkspace,
-  PanelLayout,
   ViewState,
   AsyncResult,
   MedSource,
@@ -31,7 +30,6 @@ import * as sethealth from "@sethealth/core";
 interface PanelView {
   id: string;
   title: string;
-  layout: PanelLayout;
   components: {
     type: string;
     state: ViewState;
@@ -66,17 +64,16 @@ export class SetPlayer {
   @State() loadingText?: string;
   @State() loadingProcess = 0;
 
-  @Prop({ mutable: true }) sideMenu: string | undefined = undefined;
+  @Prop({ mutable: true }) sideMenu: string | undefined = "browser";
   @Prop({ mutable: true }) slicesAction: SlicesAction = "contrast";
 
   @Method()
   async openFromSource(source: MedSource) {
     this.loadingText = "Loading medical images";
     this.loadingProcess = 0;
-    const handler = await sethealth.med.loadFromSource(
-      source,
-      (p) => (this.loadingProcess = p)
-    );
+    const handler = await sethealth.med.loadFromSource(source, (p) => {
+      this.loadingProcess = p;
+    });
     if (!handler.error) {
       await this.openMed(handler.value[0]);
     }
@@ -141,7 +138,6 @@ export class SetPlayer {
     const mainView: PanelView = {
       id: "welcome",
       title: "Welcome",
-      layout: "single",
       components: [
         {
           type: "set-demo",
@@ -421,14 +417,21 @@ export class SetPlayer {
               onSetChange={this.onSelectionChanged}
               onSetClick={this.onOpenVolume}
             >
-              <div slot="empty" class="empty-buttons">
-                <button class="empty-button" onClick={this.openFolder}>
-                  <set-icon name="folder-open-outline" />
-                  Open folder
-                </button>
+              <div slot="bottom" class="empty-buttons">
                 <button class="empty-button" onClick={this.openFiles}>
                   <set-icon name="document-outline" />
                   Open files
+                </button>
+
+                <button
+                  class={{
+                    "drag-button": true,
+                    "drag-button-collapse": this.handlers.length > 0,
+                  }}
+                  onClick={this.openFolder}
+                >
+                  <set-icon name="folder-open-outline" />
+                  <h2>Drop your medical files / folder</h2>
                 </button>
               </div>
             </set-browser>
@@ -467,22 +470,12 @@ export class SetPlayer {
 
   private renderEditor(hasToolbar: boolean) {
     const { selectedView } = this;
-    const layout =
-      selectedView?.layout === "4-views" && isMobile.matches
-        ? "3-dynamic"
-        : selectedView?.layout;
-
     return (
       <main
         class={{
           "has-toolbar": hasToolbar,
         }}
       >
-        {this.loadingText && (
-          <set-progress-bar value={this.loadingProcess} class="main-loading">
-            {this.loadingText}
-          </set-progress-bar>
-        )}
         {hasToolbar && (
           <div class="main-toolbar">
             <set-control-toolbar
@@ -503,7 +496,7 @@ export class SetPlayer {
               {this.showToolbar ? (
                 <>
                   <set-icon name="close" />
-                  <span>Close</span>
+                  <span>Colapse menu</span>
                 </>
               ) : (
                 <>
@@ -516,7 +509,7 @@ export class SetPlayer {
         )}
         <div class="editor">
           {selectedView && (
-            <set-grid-panel layout={layout} key={selectedView.id}>
+            <set-grid-panel key={selectedView.id}>
               {selectedView.components.map((c) => {
                 const Cmp = c.type;
                 const attributes =
@@ -550,6 +543,13 @@ export class SetPlayer {
         {this.renderHeader()}
         {this.renderLeftMenu()}
         {this.renderEditor(hasToolbar)}
+        {this.loadingText && (
+          <div class="loading-toast">
+            <set-progress-bar value={this.loadingProcess} class="main-loading">
+              {this.loadingText}
+            </set-progress-bar>
+          </div>
+        )}
       </Host>
     );
   }
@@ -575,7 +575,7 @@ const loadPanelsFromId = async (
 ) => {
   const progress = await sethealth.utils.createProgress(onProgress);
   const getPanelProgress = progress.source();
-  const getImagesProgress = progress.source(10);
+  const getImagesProgress = progress.source();
 
   const res = await sethealth.storage.loadMetadata(panelId, getPanelProgress);
   if (res.error) {
@@ -594,7 +594,6 @@ interface Version3 {
   views: {
     id: string;
     title: string;
-    layout: PanelLayout;
     components: {
       type: string;
       state: ViewState;
@@ -617,7 +616,6 @@ const loadPanelVersion3 = async (
     const v: PanelView = {
       id: view.id,
       components: view.components,
-      layout: view.layout,
       title: view.title,
     };
     return v;
@@ -640,7 +638,6 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
     return {
       id: workspace.id,
       title: handler.description!,
-      layout: "single",
       components: [
         {
           type: "set-view-report",
@@ -654,7 +651,6 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
     return {
       id: workspace.id,
       title: handler.description!,
-      layout: "single",
       components: [
         {
           type: "set-view-slices",
@@ -669,7 +665,6 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
     return {
       id: workspace.id,
       title: handler.description!,
-      layout: "4-views",
       components: [
         {
           type: "set-view-slices",

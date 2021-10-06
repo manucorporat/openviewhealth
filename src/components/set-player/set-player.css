@@ -84,10 +84,10 @@ header {
 
 .side-menu {
   width: 230px;
-  background: var(--set-medium);
   color: var(--set-medium-text);
   flex-shrink: 0;
   position: relative;
+  border-right: 1px solid #e2f5f0;
 }
 
 .side-menu section {
@@ -151,6 +151,44 @@ header {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+.drag-button {
+  border: 2px dashed currentcolor;
+  padding: 20px;
+  border-radius: 30px;
+  background: transparent;
+  text-align: center;
+  color: #747474;
+  height: calc(98vh - 100px);
+  margin-top: 10px;
+  box-shadow: 0 5px 4px #0000001f;
+}
+
+.drag-button-collapse {
+  height: 30vh;
+}
+
+.drag-button:hover {
+  background: var(--set-medium);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px #0000003c;
+}
+
+.drag-button > set-icon {
+  display: inline-block;
+  font-size: 30px;
+}
+
+.drag-button > h2 {
+  margin: 10px 0;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.drag-button > p {
+  margin-bottom: 15px;
+  font-size: 16px;
 }
 
 .empty-button > set-icon {
@@ -373,13 +411,24 @@ set-pane.type-custom::part(fullscreen-button) {
   box-sizing: border-box;
 }
 
+.loading-toast {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000000b8;
+  width: min(800%, 300px);
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
 .main-loading {
   box-shadow: none;
   margin: 8px 0;
   width: 100%;
   font-weight: 800;
   flex-shrink: 0;
-  --background: var(--set-medium);
+  --background: #303030;
 }
 
 .share-button {
@@ -466,8 +515,9 @@ set-browser {
   --checkbox-color: var(--action-color);
   --checkbox-tick-color: #ffffff;
 
+  /* --header-background: #000; */
   --item-selected-color: #000000;
-  --item-selected-background: #cadad6;
+  --item-selected-background: #f3f3f3;
 }
 
 set-browser::part(item-image) {

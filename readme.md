@@ -25,8 +25,8 @@ public dataset, available to anyone interested.
 
 ### 🙈 Privacy-aware
 
-All data remains offline without ever leaving your computer and we
-never track users.
+All data remains offline without ever leaving your computer, we
+never track users and data is fully anonymized before sharing.
 
 
 ### 🔒 End-to-end encrypted

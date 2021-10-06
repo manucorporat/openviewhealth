@@ -13,7 +13,7 @@
     "fmt.check": "prettier --check src"
   },
   "devDependencies": {
-    "@sethealth/core": "0.9.5",
+    "@sethealth/core": "0.11.0",
     "@stencil/core": "2.6.0",
     "@stencil/store": "^1.4.1",
     "copy-text-to-clipboard": "3.0.1",

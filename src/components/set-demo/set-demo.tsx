@@ -53,62 +53,25 @@ export class SetDemo {
           />
           <p>
             Open View Health is a free app anyone can use to visualize and
-            securely share their medical data. A modern DICOM visualizer powered
-            by Sethealth.
+            securely share their medical data. The modern DICOM visualizer the
+            world deserves.
           </p>
-          <div class="demos">
-            {DEMOS.filter((d) => !d.loaded).map((d) => (
-              <button
-                disabled={this.loadingDemo != null}
-                onClick={async () => {
-                  this.loadingDemo = d;
-                  const player = document.querySelector("set-player");
-                  if (typeof d.source === "string") {
-                    player?.openFromID(d.source);
-                  } else {
-                    player?.openFromSource(d.source);
-                  }
-                  setTimeout(() => {
-                    this.loadingDemo = null;
-                    d.loaded = true;
-                  }, 500);
-                }}
-              >
-                <div class="demo-img">
-                  <img src={d.image}></img>
-                </div>
-                <h2>{d.title}</h2>
-              </button>
-            ))}
-          </div>
-          <set-file-loader
-            loadMed
-            onSetMedLoad={() => {
-              const player = document.querySelector("set-player");
-              if (player) {
-                player.sideMenu = "browser";
-              }
-            }}
-          >
-            <h2>Drop your medical files</h2>
-            <p>Usually a folder called DICOM</p>
-          </set-file-loader>
-        </div>
-        <div class="section">
+
           <h3>🌐 Open source, open data</h3>
           <p>
             Open View Health is an{" "}
             <a href="https://github.com/sethealth/openviewhealth">
-              open source app licensed under the MIT license on Github
-            </a>
-            . Medical data donated to the platform also becomes part of truly
-            public dataset, available to anyone interested. Start contributing
+              open source app
+            </a>{" "}
+            licensed under the MIT license on Github. Medical data donated to
+            the platform also becomes part of truly public dataset, available to
+            anyone interested. Start contributing
           </p>
 
           <h3>🙈 Privacy-aware</h3>
           <p>
-            All data remains offline without ever leaving your computer and we
-            never track users.
+            All data remains offline without ever leaving your computer, we
+            never track users and data is fully anonymized before sharing.
           </p>
 
           <h3>🔒 End-to-end encrypted</h3>
@@ -134,6 +97,44 @@ export class SetDemo {
               HIPAA Privacy Rule's De-Identification Standard
             </a>
           </p>
+        </div>
+        <div class="section">
+          <h3>🌐 Try it yourself</h3>
+          <p>
+            No medical data to try Openview? Click one of the following demos
+          </p>
+          <div class="demos">
+            {DEMOS.map((d) => (
+              <button
+                disabled={this.loadingDemo != null}
+                onClick={async () => {
+                  this.loadingDemo = d;
+                  const player = document.querySelector("set-player");
+                  if (typeof d.source === "string") {
+                    player?.openFromID(d.source);
+                  } else {
+                    player?.openFromSource(d.source);
+                  }
+                  setTimeout(() => {
+                    this.loadingDemo = null;
+                    d.loaded = true;
+                  }, 500);
+                }}
+              >
+                <div class="demo-img">
+                  <img src={d.image}></img>
+                </div>
+                <h2>{d.title}</h2>
+              </button>
+            ))}
+          </div>
+          <p class="disclaimer">
+            <strong>Disclaimer:</strong> Open View Health is not intended to be
+            used as a medical device, and the site cannot and does not contain
+            medical/health advice. Any medical/health information is provided
+            for general informational and educational purposes only and is not a
+            substitute for professional advice.
+          </p>
           <p>
             <a href="https://set.health?utm_medium=referral&utm_source=OpenView&utm_campaign=PoweredBy">
               <img
@@ -142,13 +143,6 @@ export class SetDemo {
                 alt="Powered by Sethealth"
               />
             </a>
-          </p>
-          <p class="disclaimer">
-            <strong>Disclaimer:</strong> Open View Health is not intended to be
-            used as a medical device, and the site cannot and does not contain
-            medical/health advice. Any medical/health information is provided
-            for general informational and educational purposes only and is not a
-            substitute for professional advice.
           </p>
         </div>
       </Host>
