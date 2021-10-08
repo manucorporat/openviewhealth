@@ -7,13 +7,29 @@
   "categories": ["health", "medical", "education", "photo"],
   "icons": [
     {
-      "src": "assets/icon/icon-full.png",
+      "src": "assets/icon/pwa/maskable_icon_x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icon/pwa/maskable_icon_x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icon/pwa/icon_x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/pwa/icon_x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     }
   ],
   "background_color": "#ffffff",
   "description": "OpenView Health is a free app to visualize and securely share medical data. A modern open source DICOM visualizer.",
-  "theme_color": "#151513"
+  "theme_color": "#637a75"
 }
