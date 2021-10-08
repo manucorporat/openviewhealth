@@ -66,10 +66,12 @@ export class SetPlayer {
   @State() loadingText?: string;
   @State() loadingProcess = 0;
 
-  @Prop({ mutable: true }) sideMenu: string | undefined = "browser";
+  @Prop({ mutable: true }) sideMenu: string | undefined;
   @Prop({ mutable: true }) slicesAction: SlicesAction = "contrast";
 
   async componentWillLoad() {
+    this.showToolbar = window.innerWidth > 800;
+    this.sideMenu = window.innerWidth > 600 ? "browser" : undefined;
     this.loadToken();
     await sethealth.ready();
   }
