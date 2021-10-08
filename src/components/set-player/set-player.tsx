@@ -294,15 +294,21 @@ export class SetPlayer {
       return;
     }
 
-    this.loadingProcess = 1.0;
     this.loadingText = "Packing files...";
+    const progress = await sethealth.utils.createProgress(
+      (p) => (this.loadingProcess = p)
+    );
     try {
       const files: FileResource[] = [];
       let i = 0;
       for (const handler of this.selectedHandlers) {
-        const { data, extension } = await handler.serialize({
-          format: "original",
-        });
+        const { data, extension } = await handler.serialize(
+          {
+            format: "original",
+            anonymize: false,
+          },
+          progress.source()
+        );
         files.push({
           path: `${i++}${extension}`,
           data,
@@ -312,14 +318,18 @@ export class SetPlayer {
         const h = await sethealth.utils.saveAs(files[0].path);
         h(files[0].data);
       } else {
-        await sethealth.utils.saveZipAs({
-          filename: "export-sethealth",
-          files,
-        });
+        await sethealth.utils.saveZipAs(
+          {
+            filename: "export-sethealth",
+            files,
+          },
+          progress.source()
+        );
       }
     } catch (e) {
       console.error(e);
     }
+    progress.end();
     this.loadingText = undefined;
     this.loadingProcess = 0;
   };
