@@ -11,7 +11,7 @@ import {
   State,
 } from "@stencil/core";
 
-import { Workspace } from "@sethealth/core";
+import { StudyDescription, Workspace } from "@sethealth/core";
 
 @Component({
   tag: "set-sidemenu",
@@ -25,6 +25,7 @@ export class SetSidemenu {
 
   @State() workspace?: Workspace;
   @State() key = 0;
+  @State() studyDescription?: StudyDescription;
 
   @Prop() controller?: any;
 
@@ -34,15 +35,19 @@ export class SetSidemenu {
     this.rm = undefined;
 
     if (this.controller && this.controller.getWorkspace) {
-      const workspace = (await this.controller.getWorkspace())!;
+      const workspace = (await this.controller.getWorkspace())! as Workspace;
       const update = () => forceUpdate(this);
       const a = workspace.onChange("window", update);
       const b = workspace.onChange("level", update);
+      const c = workspace.onChange("shapes", update);
+
+      this.studyDescription = await workspace.med?.dicom?.getStudyDescription();
       this.workspace = workspace;
       this.key++;
       this.rm = () => {
         a();
         b();
+        c();
       };
     }
   }
@@ -75,18 +80,150 @@ export class SetSidemenu {
     }
   }
 
+  renderMeasurements() {
+    const shapes = this.workspace?.shapes;
+    if (shapes && shapes.length > 0) {
+      return (
+        <section>
+          <h1>
+            <set-icon name="ruler-solid" />
+            Measurements
+          </h1>
+
+          <div class="toolbar-content" key={`${this.key}`}>
+            <table cellspacing="0" cellpadding="0">
+              {shapes.map((shape) => {
+                if (
+                  shape.type === "line" ||
+                  shape.type === "path" ||
+                  shape.type === "brush"
+                ) {
+                  return (
+                    <tr>
+                      <td>{shape.type}</td>
+                      <td colSpan={2}>{shape.annotation.text}</td>
+                      <td class="measurement">{shape.getLength().text}</td>
+                    </tr>
+                  );
+                }
+                if (shape.type === "point") {
+                  return (
+                    <tr>
+                      <td>{shape.type}</td>
+                      <td colSpan={2}>{shape.annotation.text}</td>
+                      <td class="measurement">
+                        {shape.annotation.measurement}
+                      </td>
+                    </tr>
+                  );
+                }
+                if (shape.type === "surface") {
+                  return (
+                    <tr>
+                      <td>{shape.type}</td>
+                      <td colSpan={2}>{shape.annotation.text}</td>
+                      <td class="measurement">{shape.getArea().text}</td>
+                    </tr>
+                  );
+                }
+              })}
+            </table>
+          </div>
+        </section>
+      );
+    }
+  }
+
+  renderInformation() {
+    const med = this.workspace?.med;
+    if (med) {
+      const volume = med.volume;
+      const studyDescription = this.studyDescription;
+      const scale = volume?.scale;
+      const dimensions = volume?.dimensions;
+
+      return (
+        <section>
+          <h1>
+            <set-icon name="information-circle" />
+            Metadata
+          </h1>
+
+          <div class="toolbar-content" key={`${this.key}`}>
+            <dl>
+              {renderItem("Patient name", studyDescription?.patient.name)}
+              {renderItem("Patient ID", studyDescription?.patient.id)}
+              {renderItem("Patient age", studyDescription?.patient.age)}
+              {renderItem(
+                "Patient birth date",
+                studyDescription?.patient.birthDate
+              )}
+              {renderItem("Patient sex", studyDescription?.patient.sex)}
+              {renderItem(
+                "Physician Name",
+                studyDescription?.study.referringPhysicianName
+              )}
+              {renderItem("Study description", med.description)}
+              {renderItem("Study ID", studyDescription?.study.id)}
+              {renderItem("Study date", med.date?.toISOString())}
+              {renderItem("Case text", med.caseText)}
+              {renderItem("Body part", med.bodyPart)}
+              {renderItem("Modality", med.modality)}
+              {renderItem("Size", formatSize(med.size))}
+              {renderItem("Volume codec", volume?.codec)}
+              {renderItem("Volume unit", volume?.unit)}
+              {scale &&
+                renderItem(
+                  `Volume size (${volume?.scaleUnit})`,
+                  `${Math.round(scale.x)} x ${Math.round(
+                    scale.y
+                  )} x ${Math.round(scale.z)}`
+                )}
+              {dimensions &&
+                renderItem(
+                  "Volume dimensions (px)",
+                  `${dimensions.x} x ${dimensions.y} x ${dimensions.z}`
+                )}
+            </dl>
+          </div>
+        </section>
+      );
+    }
+  }
+
   render() {
-    const constroller = this.controller;
     return (
       <Host>
         <div class="toolbar-content" key={`${this.key}`}>
-          {this.renderTool(constroller, this.workspace)}
-          <set-view-report workspace={this.workspace}></set-view-report>
+          {this.renderTool(this.controller, this.workspace)}
+          {this.renderMeasurements()}
+          {this.renderInformation()}
         </div>
       </Host>
     );
   }
 }
+
+const formatSize = (bytes: number) => {
+  bytes = Math.round(bytes);
+  if (bytes < 1000) {
+    return `${bytes} bytes`;
+  } else if (bytes < 1000 * 1000) {
+    return `${(bytes / 1000).toFixed(2)} KB`;
+  } else {
+    return `${(bytes / (1000 * 1000)).toFixed(2)} MB`;
+  }
+};
+const renderItem = (key: string, value: string | undefined) => {
+  if (value) {
+    return (
+      <>
+        <dt>{key}</dt>
+        <dd>{value}</dd>
+      </>
+    );
+  }
+};
 
 const Fragment: FunctionalComponent = (_, children) => {
   return children;

@@ -3,7 +3,7 @@
   <img src="./src/assets/icon/setview.svg" alt="Open Health View">
 </a>
 
-Open View Health is a free app anyone can use to visualize and
+OpenView Health is a free app anyone can use to visualize and
 securely share their medical data. A modern DICOM visualizer powered
 by Sethealth.
 
@@ -18,7 +18,7 @@ npm start
 
 ### 🌐 Open source, open data
 
-Open View Health is open source app licensed under the MIT license.
+OpenView Health is open source app licensed under the MIT license.
 Medical data donated to the platform also becomes part of truly
 public dataset, available to anyone interested.
 
@@ -51,7 +51,7 @@ following the strictest guidelines of the
 
 ## Disclaimer
 
-Open View Health is not intended to be used
+OpenView Health is not intended to be used
 as a medical device, and the site cannot and does not contain
 medical/health advice. Any medical/health information is provided
 for general informational and educational purposes only and is not a

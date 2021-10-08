@@ -17,7 +17,7 @@ const DEMOS = [
   //   loaded: false,
   // },
   {
-    title: "Covid19",
+    title: "Covid19 pneumonia",
     description:
       "Full torax tomography of a COVID19 positive patient, showing the pneumonia caused by SARS-CoV-2",
     image: "/assets/demos/covid19.png",
@@ -28,7 +28,7 @@ const DEMOS = [
   {
     title: "Manix",
     description: "Full head tomography, no contrast",
-    image: "/assets/demos/manix.png",
+    image: "/assets/demos/manix2.png",
     source: MANIX,
     loaded: false,
   },
@@ -49,23 +49,31 @@ export class SetDemo {
           <img
             class="logo"
             src="/assets/icon/setview.svg"
-            alt="Open View Health logo"
+            alt="OpenView Health logo"
           />
           <p>
-            Open View Health is a free app anyone can use to visualize and
-            securely share their medical data. The modern DICOM visualizer the
-            world deserves.
+            OpenView Health is a free{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/Medical_imaging"
+              target="_blank"
+              rel="noopener"
+              class="help"
+            >
+              medical imaging
+            </a>{" "}
+            app, people all around the world can use to visualize and securely
+            share their medical data. A modern open source DICOM visualizer.
           </p>
 
           <h3>🌐 Open source, open data</h3>
           <p>
-            Open View Health is an{" "}
+            OpenView Health is an{" "}
             <a href="https://github.com/sethealth/openviewhealth">
               open source app
             </a>{" "}
             licensed under the MIT license on Github. Medical data donated to
             the platform also becomes part of truly public dataset, available to
-            anyone interested. Start contributing
+            anyone interested.
           </p>
 
           <h3>🙈 Privacy-aware</h3>
@@ -99,9 +107,10 @@ export class SetDemo {
           </p>
         </div>
         <div class="section">
-          <h3>🌐 Try it yourself</h3>
+          <h3>🌐 Try some demos</h3>
           <p>
-            No medical data to try Openview? Click one of the following demos
+            No medical data to try Openview? No worries, we got you, click one
+            of the following demos:
           </p>
           <div class="demos">
             {DEMOS.map((d) => (
@@ -129,7 +138,7 @@ export class SetDemo {
             ))}
           </div>
           <p class="disclaimer">
-            <strong>Disclaimer:</strong> Open View Health is not intended to be
+            <strong>Disclaimer:</strong> OpenView Health is not intended to be
             used as a medical device, and the site cannot and does not contain
             medical/health advice. Any medical/health information is provided
             for general informational and educational purposes only and is not a

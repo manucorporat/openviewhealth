@@ -67,6 +67,8 @@ h1 {
   z-index: 1;
   color: var(--set-background-text);
   background: var(--set-background);
+  border-bottom: 1px solid #e7e7e7;
+  box-shadow: 0 3px 3px #0000000d;
 }
 
 h1 > set-icon {
@@ -75,7 +77,19 @@ h1 > set-icon {
 }
 
 .tool-content {
-  padding: 5px 0px 15px;
+  padding: 8px 0px 15px;
+  font-size: 14px;
+}
+
+dt {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+dd {
+  margin: 0;
+  margin-left: 10px;
+  margin-bottom: 15px;
   font-size: 14px;
 }
 
@@ -106,6 +120,30 @@ li > set-icon {
   margin-right: 5px;
 }
 
+table {
+  width: 100%;
+  font-size: 14px;
+  border: 0;
+}
+
+tr:nth-child(even) {
+  background-color: #f1f1f1;
+}
+
+td {
+  padding: 5px 2px;
+}
+
+.measurement {
+  font-weight: 500;
+  text-align: right;
+}
+
+set-control-colormap,
+set-control-geometries {
+  --border-color: rgba(97, 97, 97, 0.2);
+}
+
 .measure-buttons {
   display: flex;
   justify-content: space-around;
@@ -134,6 +172,7 @@ li > set-icon {
   color: inherit;
   height: 32px;
   padding: 0;
+  margin: 0;
 }
 
 .add-material {

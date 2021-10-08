@@ -1,6 +1,6 @@
 :host {
   display: flex;
-  padding: 20px 130px;
+  padding: 20px clamp(10px, calc(19% - 100px), 130px);
   box-sizing: border-box;
   font-size: 17px;
   font-weight: 300;
@@ -63,8 +63,9 @@ ul {
   display: flex;
   flex: 4;
   flex-direction: column;
-  margin-right: 80px;
+  margin-right: clamp(20px, 10%, 80px);
   max-width: 600px;
+  min-width: 240px;
   width: 100%;
 }
 .logo {
@@ -104,6 +105,7 @@ set-file-loader p {
   display: flex;
   width: 100%;
   padding: 10px 0;
+  margin-top: 30px;
   flex-wrap: wrap;
   align-items: stretch;
   justify-content: flex-start;
@@ -131,6 +133,7 @@ set-file-loader p {
 
 .demos button[disabled] {
   cursor: wait;
+  opacity: 0.5;
 }
 
 .demos button:not([disabled]):hover {
@@ -139,9 +142,9 @@ set-file-loader p {
 }
 
 .demos h2 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 300;
-  margin: 5px 20px;
+  margin: 5px 10px;
 }
 
 .demos .demo-img {
@@ -149,10 +152,13 @@ set-file-loader p {
   background: black;
   justify-content: center;
   align-items: center;
+  aspect-ratio: 13 / 9;
 }
 
 .demos img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .loading-overlay {
@@ -171,11 +177,20 @@ set-file-loader p {
 .powered-by {
   width: 100%;
   max-width: 150px;
+  margin-top: 10px;
+}
+
+a.help {
+  cursor: help;
 }
 
 @media only screen and (max-width: 600px) {
   :host {
     padding: 10px 20px;
+  }
+
+  .section2 {
+    margin-right: 20px;
   }
 
   .demos button {

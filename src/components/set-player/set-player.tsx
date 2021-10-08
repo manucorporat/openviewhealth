@@ -22,6 +22,7 @@ import {
   AsyncResult,
   MedSource,
   FileResource,
+  med,
 } from "@sethealth/core";
 import { createAlertModal } from "./alert";
 import { reactiveMedia } from "../../utils";
@@ -30,6 +31,7 @@ import * as sethealth from "@sethealth/core";
 interface PanelView {
   id: string;
   title: string;
+  hasToolbar: boolean;
   components: {
     type: string;
     state: ViewState;
@@ -66,6 +68,11 @@ export class SetPlayer {
 
   @Prop({ mutable: true }) sideMenu: string | undefined = "browser";
   @Prop({ mutable: true }) slicesAction: SlicesAction = "contrast";
+
+  async componentWillLoad() {
+    this.loadToken();
+    await sethealth.ready();
+  }
 
   @Method()
   async openFromSource(source: MedSource) {
@@ -131,24 +138,6 @@ export class SetPlayer {
     }
   }
 
-  async componentWillLoad() {
-    this.loadToken();
-    await sethealth.ready();
-
-    const mainView: PanelView = {
-      id: "welcome",
-      title: "Welcome",
-      components: [
-        {
-          type: "set-demo",
-          state: {},
-        },
-      ],
-    };
-    const views = (this.views = [mainView]);
-    this.selectedView = views[0];
-  }
-
   private openFolder = async () => {
     const files = await sethealth.utils.openFiles(true, true);
     if (files.length > 0) {
@@ -203,13 +192,13 @@ export class SetPlayer {
   private onSelectionChanged = (ev: CustomEvent<ItemHandler[]>) => {
     const handlers = ev.detail.filter((i) => i.type === "med") as MedHandler[];
     this.selectedHandlers = handlers;
-    const shareButton = this.el.shadowRoot!.querySelector(".share-button");
-    if (shareButton) {
-      shareButton.classList.add("share-jump");
-      setTimeout(() => {
-        shareButton.classList.remove("share-jump");
-      }, 300);
-    }
+    const shareButtons = Array.from(
+      this.el.shadowRoot!.querySelectorAll(".share-button")
+    );
+    shareButtons.forEach((btn) => btn.classList.add("share-jump"));
+    setTimeout(() => {
+      shareButtons.forEach((btn) => btn.classList.remove("share-jump"));
+    }, 300);
   };
 
   private openMed = async (handler: MedHandler) => {
@@ -336,6 +325,7 @@ export class SetPlayer {
   };
 
   private viewFocusChanged = (ev: CustomEvent<ViewFocusDetail>) => {
+    console.log("viewFocusChanged", ev);
     this.selectedController = ev.detail.controller;
   };
 
@@ -343,14 +333,22 @@ export class SetPlayer {
     this.showToolbar = !this.showToolbar;
   };
 
-  componentDidRender() {
-    if (!this.selectedController) {
-      const pane = this.el.shadowRoot?.querySelector("set-pane");
-      if (pane) {
-        pane.markFocus();
-      }
-    }
-  }
+  private selectAll = () => {
+    this.selectedHandlers = this.handlers.slice();
+  };
+
+  private unselectAll = () => {
+    this.selectedHandlers = [];
+  };
+
+  private clearAll = async () => {
+    this.handlers = [];
+    this.selectedHandlers = [];
+    this.views = [];
+    this.selectedView = undefined;
+    this.selectedController = undefined;
+    await med.destroyAll();
+  };
 
   private renderHeader() {
     return (
@@ -389,6 +387,13 @@ export class SetPlayer {
           })}
         </div>
         <div class="header-bottom-buttons">
+          <button
+            onClick={() => {
+              this.selectedView = undefined;
+            }}
+          >
+            <set-icon name="home" />
+          </button>
           <button onClick={this.enterFullscreen} class="fullscreen-button">
             <set-icon name="expand"></set-icon>
           </button>
@@ -401,41 +406,76 @@ export class SetPlayer {
     if (this.sideMenu === "browser") {
       return (
         <div class="side-menu" key="side-menu">
-          <set-file-loader buttonAction="none" class="file-loader-browser">
+          <div class="section-header">
+            <h2>Browser</h2>
+            <button
+              class="section-header-button"
+              onClick={this.openFolder}
+              title="Load folder"
+            >
+              <set-icon name="folder-open-outline" />
+            </button>
+            <button
+              class="section-header-button"
+              onClick={this.openFiles}
+              title="Load files"
+            >
+              <set-icon name="document-outline" />
+            </button>
+          </div>
+          {this.handlers.length > 0 && (
             <div class="section-header">
-              <h2>Browser</h2>
-              <button class="section-header-button" onClick={this.openFolder}>
-                <set-icon name="folder-open-outline" />
+              <button
+                class="section-header-button-text"
+                onClick={this.selectAll}
+              >
+                Select all
               </button>
-              <button class="section-header-button" onClick={this.openFiles}>
-                <set-icon name="document-outline" />
+              <button
+                class="section-header-button-text"
+                onClick={this.unselectAll}
+              >
+                Unselect all
+              </button>
+              <button
+                class="section-header-button-text"
+                onClick={this.clearAll}
+              >
+                Clear all
               </button>
             </div>
-            <set-browser
-              selectionType="multiple"
-              items={this.handlers}
-              onSetChange={this.onSelectionChanged}
-              onSetClick={this.onOpenVolume}
-            >
-              <div slot="bottom" class="empty-buttons">
-                <button class="empty-button" onClick={this.openFiles}>
-                  <set-icon name="document-outline" />
-                  Open files
-                </button>
+          )}
+          <set-browser
+            selectionType="multiple"
+            items={this.handlers}
+            value={this.selectedHandlers}
+            onSetChange={this.onSelectionChanged}
+            onSetClick={this.onOpenVolume}
+          >
+            <div slot="bottom" class="empty-buttons">
+              <button class="empty-button" onClick={this.openFiles}>
+                <set-icon name="document-outline" />
+                Import files
+              </button>
+              <button class="empty-button" onClick={this.openFolder}>
+                <set-icon name="folder-open-outline" />
+                Import folders
+              </button>
 
-                <button
-                  class={{
-                    "drag-button": true,
-                    "drag-button-collapse": this.handlers.length > 0,
-                  }}
-                  onClick={this.openFolder}
-                >
-                  <set-icon name="folder-open-outline" />
-                  <h2>Drop your medical files / folder</h2>
-                </button>
-              </div>
-            </set-browser>
-          </set-file-loader>
+              <set-file-loader
+                buttonAction="select-folder"
+                class={{
+                  "drag-button": true,
+                  "drag-button-collapse": this.handlers.length > 0,
+                }}
+                loadMed
+                multipleSelection
+              >
+                <set-icon name="folder-open-outline" />
+                <h2>Drop your medical files / folder</h2>
+              </set-file-loader>
+            </div>
+          </set-browser>
           <button
             class={{
               "share-button": true,
@@ -445,11 +485,12 @@ export class SetPlayer {
             onClick={this.sharePanel}
           >
             <set-icon name="share"></set-icon>
-            <span>
-              {this.selectedHandlers.length === 0
-                ? "Select to share"
-                : `Share ${this.selectedHandlers.length} docs`}
-            </span>
+
+            {this.selectedHandlers.length > 0 ? (
+              <span>Share {this.selectedHandlers.length} files</span>
+            ) : (
+              <span>Share files</span>
+            )}
           </button>
 
           <button
@@ -462,14 +503,20 @@ export class SetPlayer {
             onClick={this.downloadImages}
           >
             <set-icon name="download"></set-icon>
+            {this.selectedHandlers.length > 0 ? (
+              <span>Download {this.selectedHandlers.length} files</span>
+            ) : (
+              <span>Download files</span>
+            )}
           </button>
         </div>
       );
     }
   }
 
-  private renderEditor(hasToolbar: boolean) {
+  private renderEditor() {
     const { selectedView } = this;
+    const hasToolbar = selectedView?.hasToolbar === true;
     return (
       <main
         class={{
@@ -508,7 +555,7 @@ export class SetPlayer {
           </div>
         )}
         <div class="editor">
-          {selectedView && (
+          {selectedView ? (
             <set-grid-panel key={selectedView.id}>
               {selectedView.components.map((c) => {
                 const Cmp = c.type;
@@ -523,8 +570,10 @@ export class SetPlayer {
                 );
               })}
             </set-grid-panel>
+          ) : (
+            <set-demo></set-demo>
           )}
-          {hasToolbar && this.showToolbar && (
+          {hasToolbar && this.showToolbar && selectedView && (
             <>
               <div class="side-menu-backdrop" onClick={this.toggleSide}></div>
               <set-sidemenu controller={this.selectedController} />
@@ -536,13 +585,11 @@ export class SetPlayer {
   }
 
   render() {
-    const { selectedView } = this;
-    const hasToolbar = !!(selectedView && selectedView.title !== "Welcome");
     return (
       <Host onSetFocus={this.viewFocusChanged}>
         {this.renderHeader()}
         {this.renderLeftMenu()}
-        {this.renderEditor(hasToolbar)}
+        {this.renderEditor()}
         {this.loadingText && (
           <div class="loading-toast">
             <set-progress-bar value={this.loadingProcess} class="main-loading">
@@ -550,10 +597,15 @@ export class SetPlayer {
             </set-progress-bar>
           </div>
         )}
+        {!this.selectedView && <div innerHTML={GITHUB_LINK} />}
       </Host>
     );
   }
 }
+
+const GITHUB_LINK = `
+<a href="https://github.com/sethealth/openviewhealth" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+`;
 
 const sharePanel = async (state: any, onProgress: ProgressCallback) => {
   const resSecret = await sethealth.storage.uploadMetadata(state, onProgress);
@@ -615,6 +667,7 @@ const loadPanelVersion3 = async (
   const value = state.views.map((view) => {
     const v: PanelView = {
       id: view.id,
+      hasToolbar: view.components.some((c) => c.type === "set-view-slices"),
       components: view.components,
       title: view.title,
     };
@@ -638,6 +691,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
     return {
       id: workspace.id,
       title: handler.description!,
+      hasToolbar: false,
       components: [
         {
           type: "set-view-report",
@@ -651,6 +705,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
     return {
       id: workspace.id,
       title: handler.description!,
+      hasToolbar: true,
       components: [
         {
           type: "set-view-slices",
@@ -665,6 +720,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
     return {
       id: workspace.id,
       title: handler.description!,
+      hasToolbar: true,
       components: [
         {
           type: "set-view-slices",

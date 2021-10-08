@@ -59,7 +59,8 @@ header {
 }
 
 .logo:hover,
-.header-buttons > button:hover {
+.header-buttons > button:hover,
+.header-bottom-buttons > button:hover {
   background: var(--set-main-tint);
 }
 
@@ -69,12 +70,14 @@ header {
   flex: 1;
 }
 
-.header-buttons > button.selected {
+.header-buttons > button.selected,
+.header-bottom-buttons > button.selected {
   background: var(--set-main-shade);
 }
 
 .header-bottom-buttons {
   padding: 10px 0;
+  width: 100%;
 }
 
 .main-container {
@@ -103,7 +106,6 @@ header {
   padding: 0 10px;
   background: var(--set-main);
   color: var(--set-main-text);
-  box-shadow: 0px 2px 5px #0000004f;
   height: 28px;
 }
 
@@ -126,6 +128,20 @@ header {
   font-size: 18px;
   margin-left: 6px;
   opacity: 1;
+}
+
+.section-header-button-text {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  opacity: 1;
+}
+
+.section-header-button-text:hover {
+  text-decoration: underline;
 }
 
 .section-header-button > set-icon {
@@ -160,7 +176,7 @@ header {
   background: transparent;
   text-align: center;
   color: #747474;
-  height: calc(98vh - 100px);
+  height: calc(98vh - 180px);
   margin-top: 10px;
   box-shadow: 0 5px 4px #0000001f;
 }
@@ -417,7 +433,7 @@ set-pane.type-custom::part(fullscreen-button) {
   left: 50%;
   transform: translateX(-50%);
   background: #000000b8;
-  width: min(800%, 300px);
+  width: min(80%, 350px);
   padding: 0 10px;
   border-radius: 10px;
 }
@@ -435,8 +451,8 @@ set-pane.type-custom::part(fullscreen-button) {
   position: absolute;
   bottom: 15px;
   left: 10px;
-  height: 60px;
-  width: 140px;
+  height: 70px;
+  width: 90px;
   border-radius: 200px;
   border: 0;
   background: var(--action-color);
@@ -445,21 +461,15 @@ set-pane.type-custom::part(fullscreen-button) {
   margin: auto;
   padding: 0 15px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 1;
-  font-size: 16px;
-  text-align: start;
+  font-size: 13px;
+  text-align: center;
   transform: translateY(100px);
   transition: transform ease-in-out 300ms;
-}
-
-.download-button {
-  left: auto;
-  width: 60px;
-  padding: 0;
-  right: 10px;
-  background: rgb(56 56 56);
+  line-height: 1;
 }
 
 .share-disabled {
@@ -468,12 +478,18 @@ set-pane.type-custom::part(fullscreen-button) {
   cursor: pointer;
 }
 
-.download-button.share-disabled {
-  background: #828282;
-}
-
 .share-visible {
   transform: translateY(0);
+}
+
+.download-button {
+  left: auto;
+  right: 10px;
+  background: rgb(56 56 56);
+}
+
+.download-button.share-disabled {
+  background: #828282;
 }
 
 set-browser::part(checkbox) {
@@ -489,9 +505,9 @@ set-browser::part(checkbox) {
 }
 
 .share-button set-icon {
-  font-size: 30px;
-  margin-right: 10px;
+  font-size: 28px;
   flex-shrink: 0;
+  margin-bottom: 3px;
 }
 
 .download-button set-icon {
@@ -540,14 +556,18 @@ set-browser::part(item-image) {
     flex-direction: column;
   }
 
+  .github-corner {
+    display: none;
+  }
+
   .main-toolbar {
-    padding: 0 10px;
+    padding: 0;
     height: 36px;
   }
 
   set-control-toolbar {
     --gap: 0;
-    --padding: 3px 12px;
+    --padding: 3px 10px;
   }
 
   set-pane {
@@ -578,7 +598,12 @@ set-browser::part(item-image) {
     width: 60px;
   }
 
-  .header-buttons {
+  .section-header-button {
+    display: none;
+  }
+
+  .header-buttons,
+  .header-bottom-buttons {
     display: flex;
     flex-direction: row;
     padding: 0;
@@ -589,12 +614,17 @@ set-browser::part(item-image) {
     width: auto;
     flex: 1;
   }
+  .header-bottom-buttons {
+    justify-content: flex-end;
+    padding-right: 5px;
+  }
 
   .fullscreen-button {
     display: none !important;
   }
 
-  .header-buttons > button {
+  .header-buttons > button,
+  .header-bottom-buttons > button {
     width: auto;
     height: 100%;
   }
@@ -607,6 +637,8 @@ set-browser::part(item-image) {
     top: 38px;
     width: 100%;
     z-index: 100;
+    color: var(--set-background-text);
+    background: var(--set-background);
   }
 
   set-sidemenu {
@@ -618,6 +650,7 @@ set-browser::part(item-image) {
     height: 100%;
     border: 0;
     width: 250px;
+    padding: 0 10px;
   }
 
   .side-menu-backdrop {
