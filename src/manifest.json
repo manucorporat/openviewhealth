@@ -3,6 +3,8 @@
   "short_name": "OpenView",
   "start_url": "/",
   "display": "standalone",
+  "lang": "en-US",
+  "categories": ["health", "medical", "education", "photo"],
   "icons": [
     {
       "src": "assets/icon/icon-full.png",
@@ -12,5 +14,6 @@
     }
   ],
   "background_color": "#ffffff",
-  "theme_color": "#9DC5BB"
+  "description": "OpenView Health is a free app to visualize and securely share medical data. A modern open source DICOM visualizer.",
+  "theme_color": "#151513"
 }
