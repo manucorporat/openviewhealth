@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "OpenView Health is a free app to visualize and securely share medical data. A modern open source DICOM visualizer.",
   "scripts": {
-    "build": "stencil build",
+    "build": "stencil build --prerender",
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
@@ -17,6 +17,7 @@
     "@stencil/core": "2.8.1",
     "@stencil/store": "^1.4.1",
     "copy-text-to-clipboard": "3.0.1",
+    "idb": "^6.1.4",
     "prettier": "2.4.1",
     "workbox-build": "^4.3.1"
   },

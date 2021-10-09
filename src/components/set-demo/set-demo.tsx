@@ -131,7 +131,7 @@ export class SetDemo {
                 }}
               >
                 <div class="demo-img">
-                  <img src={d.image}></img>
+                  <img src={d.image} alt={`Screenshot of ${d.title}`} />
                 </div>
                 <h2>{d.title}</h2>
               </button>

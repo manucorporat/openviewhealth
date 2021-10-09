@@ -8,6 +8,7 @@ import {
   Prop,
   Listen,
   Fragment,
+  Build,
 } from "@stencil/core";
 
 import {
@@ -45,6 +46,7 @@ const MENU = [
     type: "browser",
     icon: "document-outline",
     selectedIcon: "document",
+    text: "File browser",
   },
 ];
 
@@ -70,10 +72,12 @@ export class SetPlayer {
   @Prop({ mutable: true }) slicesAction: SlicesAction = "contrast";
 
   async componentWillLoad() {
-    this.showToolbar = window.innerWidth > 800;
-    this.sideMenu = window.innerWidth > 600 ? "browser" : undefined;
-    this.loadToken();
-    await sethealth.ready();
+    if (Build.isBrowser) {
+      this.showToolbar = window.innerWidth > 800;
+      this.sideMenu = window.innerWidth > 600 ? "browser" : undefined;
+      this.loadToken();
+      await sethealth.ready();
+    }
   }
 
   @Method()
@@ -386,6 +390,7 @@ export class SetPlayer {
                 onClick={() => {
                   this.sideMenu = selected ? undefined : item.type;
                 }}
+                title={item.text}
               >
                 <set-icon
                   name={
