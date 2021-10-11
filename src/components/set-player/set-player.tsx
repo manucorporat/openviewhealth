@@ -408,10 +408,15 @@ export class SetPlayer {
             onClick={() => {
               this.selectedView = undefined;
             }}
+            title="Show home page"
           >
             <set-icon name="home" />
           </button>
-          <button onClick={this.enterFullscreen} class="fullscreen-button">
+          <button
+            onClick={this.enterFullscreen}
+            class="fullscreen-button"
+            title="Toggle fullscreen mode"
+          >
             <set-icon name="expand"></set-icon>
           </button>
         </div>
