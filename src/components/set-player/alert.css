@@ -101,7 +101,7 @@ p {
 set-progress-bar {
   margin: 0;
   margin-top: 20px;
-  --background: white;
+  --background: black;
 }
 
 code {

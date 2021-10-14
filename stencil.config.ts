@@ -14,6 +14,10 @@ export const config: Config = {
       baseUrl: 'https://openview.health',
       prerenderConfig: './prerendering-config.ts',
       serviceWorker: {
+        runtimeCaching: [{
+          urlPattern: /^https:\/\/js\.set\.health\//,
+          handler: 'CacheFirst',
+        }],
 
       }
     }

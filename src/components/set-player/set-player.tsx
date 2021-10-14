@@ -233,7 +233,7 @@ export class SetPlayer {
       view.components.map((c) => c.state.workspace!)
     );
 
-    const serializableWorkspaces = await sethealth.workspace.ensureSources(
+    const res = await sethealth.workspace.ensureSources(
       workspaces,
       {
         bucket: {
@@ -247,13 +247,14 @@ export class SetPlayer {
       },
       onProgress
     );
-    if (serializableWorkspaces.error) {
-      throw serializableWorkspaces.value;
+    if (res.error) {
+      throw res.error;
     }
 
+    const serialized = await sethealth.workspace.serialize(workspaces);
     return {
       version: 3,
-      workspaces: serializableWorkspaces.value,
+      workspaces: serialized,
       views,
     };
   }
@@ -271,8 +272,8 @@ export class SetPlayer {
     }
     const onShare = async (onProgress) => {
       const progress = await sethealth.utils.createProgress(onProgress);
-      const finalUpload = progress.source(1);
-      const panelState = await this.getState(progress.source(20));
+      const finalUpload = progress.source();
+      const panelState = await this.getState(progress.source());
       return sharePanel(panelState, finalUpload);
     };
     const onDonate = async () => {
@@ -341,7 +342,6 @@ export class SetPlayer {
   };
 
   private viewFocusChanged = (ev: CustomEvent<ViewFocusDetail>) => {
-    console.log("viewFocusChanged", ev);
     this.selectedController = ev.detail.controller;
   };
 
@@ -581,10 +581,10 @@ export class SetPlayer {
             <set-grid-panel key={selectedView.id}>
               {selectedView.components.map((c) => {
                 const Cmp = c.type;
-                const attributes =
-                  Cmp === "set-view-slices"
-                    ? { ...c.state, pointerAction: this.slicesAction }
-                    : c.state;
+                let attributes = c.state;
+                if (Cmp === "set-view-slices") {
+                  attributes = { ...c.state, pointerAction: this.slicesAction };
+                }
                 return (
                   <set-pane showMaximize={true} state={c.state}>
                     <Cmp {...attributes} />

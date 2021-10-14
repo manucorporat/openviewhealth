@@ -69,24 +69,50 @@ export class SetDemo {
           <p>
             OpenView Health is an{" "}
             <a href="https://github.com/sethealth/openviewhealth">
-              open source app
+              open source initiative
             </a>{" "}
-            licensed under the MIT license on Github. Medical data donated to
-            the platform also becomes part of truly public dataset, available to
-            anyone interested.
+            licensed under the MIT license on Github. Both software and medical
+            data donated to the platform becomes part of truly anonymized public
+            dataset.
           </p>
 
           <h3>🙈 Privacy-aware</h3>
           <p>
             All data remains offline without ever leaving your computer, we
-            never track users and data is fully anonymized before sharing.
+            never track users and data is{" "}
+            <a
+              href="https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html"
+              target="_blank"
+              rel="noopener"
+              class="help"
+            >
+              fully anonymized
+            </a>{" "}
+            when you decide to share it.
           </p>
 
           <h3>🔒 End-to-end encrypted</h3>
           <p>
-            If you decide to share, your data will be end-to-end encrypted with
-            AES256-GCM before it's uploaded. Since the encryption key is
-            generated on your device, nobody but you can access it, not even us.{" "}
+            If you decide to share, your data will be{" "}
+            <a
+              href="https://en.wikipedia.org/wiki/End-to-end_encryption"
+              target="_blank"
+              rel="noopener"
+              class="help"
+            >
+              end-to-end encrypted
+            </a>{" "}
+            with
+            <a
+              href="https://en.wikipedia.org/wiki/Galois/Counter_Mode"
+              target="_blank"
+              rel="noopener"
+              class="help"
+            >
+              AES256-GCM
+            </a>{" "}
+            before it's uploaded. Since the encryption key is generated on your
+            device, nobody but you can access it, not even us.{" "}
             <a href="#">Learn more about our end-to-end encryption</a>
           </p>
 
@@ -109,8 +135,7 @@ export class SetDemo {
         <div class="section">
           <h3>🌐 Try some demos</h3>
           <p>
-            No medical data to try Openview? No worries, we got you, click one
-            of the following demos:
+            No medical data to try Openview? click one of the following demos:
           </p>
           <div class="demos">
             {DEMOS.map((d) => (

@@ -173,7 +173,6 @@ header {
   border: 2px dashed currentcolor;
   padding: 20px;
   border-radius: 30px;
-  background: transparent;
   text-align: center;
   color: #747474;
   height: calc(98vh - 180px);
@@ -452,7 +451,7 @@ set-pane.type-custom::part(fullscreen-button) {
   bottom: 15px;
   left: 10px;
   height: 70px;
-  width: 90px;
+  width: 95px;
   border-radius: 200px;
   border: 0;
   background: var(--action-color);
