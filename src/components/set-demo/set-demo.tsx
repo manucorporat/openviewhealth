@@ -45,6 +45,8 @@ export const SetDemo: FunctionalComponent<{
           class="logo"
           src="/assets/icon/setview.svg"
           alt="OpenView Health logo"
+          width="1693"
+          height="829"
         />
         <p>
           OpenView Health is a free{" "}
@@ -167,6 +169,8 @@ export const SetDemo: FunctionalComponent<{
             <img
               class="powered-by"
               src="/assets/PoweredBy-Dark.svg"
+              width="2392"
+              height="457"
               alt="Powered by Sethealth"
             />
           </a>

@@ -393,7 +393,12 @@ export class SetPlayer {
             target="_blank"
             rel="noopener"
           >
-            <img src="/assets/logo-small.svg" alt="Sethealth logo" />
+            <img
+              src="/assets/logo-small.svg"
+              alt="Sethealth logo"
+              width="462"
+              height="259"
+            />
           </a>
         </div>
 

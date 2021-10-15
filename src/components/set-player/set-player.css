@@ -45,6 +45,7 @@ header {
 .header-top img,
 .header-top picture {
   width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -56,6 +57,7 @@ header {
   box-sizing: border-box;
   margin: 3px;
   border-radius: 5px;
+  height: auto;
 }
 
 .sethealth-logo:hover,
@@ -553,10 +555,6 @@ set-browser::part(item-image) {
 @media only screen and (max-width: 600px) {
   :host {
     flex-direction: column;
-  }
-
-  .github-corner {
-    display: none;
   }
 
   .main-toolbar {

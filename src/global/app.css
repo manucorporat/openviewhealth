@@ -96,3 +96,9 @@ body {
   background: var(--set-background);
   color: var(--set-background-text);
 }
+
+@media only screen and (max-width: 600px) {
+  .github-corner {
+    display: none;
+  }
+}

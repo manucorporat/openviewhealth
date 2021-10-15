@@ -67,6 +67,7 @@
 .demo-page .logo {
   margin: 0 0 10px;
   width: 100%;
+  height: auto;
   max-width: 280px;
 }
 
