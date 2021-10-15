@@ -54,7 +54,7 @@ const MENU = [
 @Component({
   tag: "set-player",
   styleUrl: "set-player.css",
-  shadow: true,
+  scoped: true,
 })
 export class SetPlayer {
   @Element() el!: HTMLSetPlayerElement;
