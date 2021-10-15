@@ -18,3 +18,14 @@ export const reactiveMedia = (query: string) => {
     },
   };
 };
+
+export const goal = (event: string) => {
+  try {
+    const plausible = (window as any).plausible;
+    if (typeof plausible === "function") {
+      plausible(event);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};

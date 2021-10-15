@@ -26,8 +26,9 @@ import {
   med,
 } from "@sethealth/core";
 import { createAlertModal } from "./alert";
-import { reactiveMedia } from "../../utils";
+import { goal, reactiveMedia } from "../../utils";
 import * as sethealth from "@sethealth/core";
+import { SetDemo } from "../set-demo/set-demo";
 
 interface PanelView {
   id: string;
@@ -138,6 +139,7 @@ export class SetPlayer {
       const panelId = params.get("id");
       if (panelId) {
         this.sideMenu = undefined;
+        goal("Open shared link");
         await this.openFromID(panelId);
         this.sideMenu = "browser";
       }
@@ -149,10 +151,13 @@ export class SetPlayer {
     if (files.length > 0) {
       this.loadingText = "Loading files";
       this.loadingProcess = 0;
-      await sethealth.med.loadFromFiles(
+      const handlers = await sethealth.med.loadFromFiles(
         files,
         (p) => (this.loadingProcess = p)
       );
+      if (handlers.value && handlers.value.length > 0) {
+        this.dataImported();
+      }
       this.loadingText = undefined;
     }
   };
@@ -162,10 +167,13 @@ export class SetPlayer {
     if (files.length > 0) {
       this.loadingText = "Loading files";
       this.loadingProcess = 0;
-      await sethealth.med.loadFromFiles(
+      const handlers = await sethealth.med.loadFromFiles(
         files,
         (p) => (this.loadingProcess = p)
       );
+      if (handlers.value && handlers.value.length > 0) {
+        this.dataImported();
+      }
       this.loadingText = undefined;
     }
   };
@@ -286,6 +294,8 @@ export class SetPlayer {
       }));
       await images.append(entries);
     };
+    goal("Share");
+
     await createAlertModal(onShare, onDonate);
   };
 
@@ -301,7 +311,9 @@ export class SetPlayer {
       return;
     }
 
-    this.loadingText = "Packing files...";
+    goal("Share");
+
+    this.loadingText = "Packing files into a ZIP...";
     const progress = await sethealth.utils.createProgress(
       (p) => (this.loadingProcess = p)
     );
@@ -366,13 +378,17 @@ export class SetPlayer {
     await med.destroyAll();
   };
 
+  private dataImported = async () => {
+    goal("Import medical data");
+  };
+
   private renderHeader() {
     return (
       <header>
         <div class="header-top">
           <a
             href="https://set.health?utm_medium=referral&utm_source=OpenView&utm_campaign=PoweredBy"
-            class="logo"
+            class="sethealth-logo"
             title="Sethealth"
             target="_blank"
             rel="noopener"
@@ -492,6 +508,7 @@ export class SetPlayer {
                 }}
                 loadMed
                 multipleSelection
+                onSetMedLoad={this.dataImported}
               >
                 <set-icon name="folder-open-outline" />
                 <h2>Drop your medical files / folder</h2>
@@ -593,7 +610,7 @@ export class SetPlayer {
               })}
             </set-grid-panel>
           ) : (
-            <set-demo></set-demo>
+            <SetDemo player={this.el} />
           )}
           {hasToolbar && this.showToolbar && selectedView && (
             <>

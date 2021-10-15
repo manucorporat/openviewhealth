@@ -85,10 +85,10 @@ export class SetSidemenu {
     if (shapes && shapes.length > 0) {
       return (
         <section>
-          <h1>
+          <h2>
             <set-icon name="ruler-solid" />
             Measurements
-          </h1>
+          </h2>
 
           <div class="toolbar-content" key={`${this.key}`}>
             <table cellspacing="0" cellpadding="0">
@@ -144,10 +144,10 @@ export class SetSidemenu {
 
       return (
         <section>
-          <h1>
+          <h2>
             <set-icon name="information-circle" />
             Metadata
-          </h1>
+          </h2>
 
           <div class="toolbar-content" key={`${this.key}`}>
             <dl>
@@ -255,10 +255,10 @@ const tool3DGeometry = (
   return (
     <Fragment>
       <section>
-        <h1>
+        <h2>
           <set-icon name="videocam-outline" />
           Camera
-        </h1>
+        </h2>
 
         <div class="tool-content">
           <set-input-select
@@ -276,10 +276,10 @@ const tool3DGeometry = (
         </div>
       </section>
       <section>
-        <h1>
+        <h2>
           <set-icon name="cube-outline" />
           Geometry
-        </h1>
+        </h2>
         <div class="tool-content">
           <div class="add-material">
             <button
@@ -353,10 +353,10 @@ const tool3D = (
   return (
     <Fragment>
       <section>
-        <h1>
+        <h2>
           <set-icon name="contrast" />
           Color mapping
-        </h1>
+        </h2>
         <div class="tool-content">
           <set-input-select
             header="Shader"
@@ -386,10 +386,10 @@ const tool3D = (
 
       {controller.shader !== "max-intensity" && (
         <section>
-          <h1>
+          <h2>
             <set-icon name="flashlight" />
             Lighting
-          </h1>
+          </h2>
           <div class="tool-content">
             <set-input-range
               header="Ambient"
@@ -420,10 +420,10 @@ const tool3D = (
       )}
       {controller.shader === "max-intensity" && (
         <section>
-          <h1>
+          <h2>
             <set-icon name="color-filter" />
             Filtering
-          </h1>
+          </h2>
           <div class="tool-content">
             <set-input-range
               header="Low cut"
@@ -443,10 +443,10 @@ const tool3D = (
         </section>
       )}
       {/* <section>
-        <h1>
+        <h2>
           <set-icon name="color-filter" />
           Geometry
-        </h1>
+        </h2>
         <div class="tool-content">
           <button
             class="add-material"
@@ -483,10 +483,10 @@ const toolLayers = (
   return (
     <Fragment>
       <section>
-        <h1>
+        <h2>
           <set-icon name="contrast" />
           Color mapping
-        </h1>
+        </h2>
         <div class="tool-content">
           <set-control-colormap
             window={workspace.window}
@@ -522,10 +522,10 @@ const toolLayers = (
         </div>
       </section>
       {/* <section>
-        <h1>
+        <h2>
           <set-icon name="star-half" />
           Segmentation
-        </h1>
+        </h2>
         <div class="tool-content">
           <button
             class="add-material"

@@ -7,8 +7,6 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { MedSource, SlicesAction } from "@sethealth/core";
 export namespace Components {
-    interface SetDemo {
-    }
     interface SetModal {
         "backdropClose": boolean;
         "renderContent"?: (
@@ -30,12 +28,6 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLSetDemoElement extends Components.SetDemo, HTMLStencilElement {
-    }
-    var HTMLSetDemoElement: {
-        prototype: HTMLSetDemoElement;
-        new (): HTMLSetDemoElement;
-    };
     interface HTMLSetModalElement extends Components.SetModal, HTMLStencilElement {
     }
     var HTMLSetModalElement: {
@@ -55,15 +47,12 @@ declare global {
         new (): HTMLSetSidemenuElement;
     };
     interface HTMLElementTagNameMap {
-        "set-demo": HTMLSetDemoElement;
         "set-modal": HTMLSetModalElement;
         "set-player": HTMLSetPlayerElement;
         "set-sidemenu": HTMLSetSidemenuElement;
     }
 }
 declare namespace LocalJSX {
-    interface SetDemo {
-    }
     interface SetModal {
         "backdropClose"?: boolean;
         "renderContent"?: (
@@ -82,7 +71,6 @@ declare namespace LocalJSX {
         "controller"?: any;
     }
     interface IntrinsicElements {
-        "set-demo": SetDemo;
         "set-modal": SetModal;
         "set-player": SetPlayer;
         "set-sidemenu": SetSidemenu;
@@ -92,7 +80,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "set-demo": LocalJSX.SetDemo & JSXBase.HTMLAttributes<HTMLSetDemoElement>;
             "set-modal": LocalJSX.SetModal & JSXBase.HTMLAttributes<HTMLSetModalElement>;
             "set-player": LocalJSX.SetPlayer & JSXBase.HTMLAttributes<HTMLSetPlayerElement>;
             "set-sidemenu": LocalJSX.SetSidemenu & JSXBase.HTMLAttributes<HTMLSetSidemenuElement>;

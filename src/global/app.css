@@ -42,7 +42,7 @@
   --panel-background: #000000d4;
   --action-color: rgb(101 34 255);
 }
-
+/*
 :root.dark {
   --set-background: rgba(0, 0, 0, 1);
   --set-background-shade: rgba(0, 0, 0, 1);
@@ -72,7 +72,7 @@
   --panel-border: 1px;
   --panel-background: var(--set-medium);
   --action-color: rgb(101 34 255);
-}
+} */
 
 set-player:not(.hydrated) {
   display: none;

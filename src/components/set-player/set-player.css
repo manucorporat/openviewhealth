@@ -48,7 +48,7 @@ header {
   display: block;
 }
 
-.logo {
+.sethealth-logo {
   border: 0;
   display: block;
   background: transparent;
@@ -58,7 +58,7 @@ header {
   border-radius: 5px;
 }
 
-.logo:hover,
+.sethealth-logo:hover,
 .header-buttons > button:hover,
 .header-bottom-buttons > button:hover {
   background: var(--set-main-tint);
@@ -688,3 +688,5 @@ set-browser::part(item-image) {
     transform: scale(1);
   }
 }
+
+@import url("../set-demo/set-demo.css");

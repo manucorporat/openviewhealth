@@ -55,7 +55,7 @@
   display: none;
 }
 
-h1 {
+h2 {
   position: sticky;
   top: 0;
   display: flex;
@@ -71,7 +71,7 @@ h1 {
   box-shadow: 0 3px 3px #0000000d;
 }
 
-h1 > set-icon {
+h2 > set-icon {
   font-size: 20px;
   margin-right: 8px;
 }

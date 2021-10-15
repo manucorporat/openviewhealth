@@ -3,6 +3,7 @@ import styles from "./alert.css";
 import { createModal } from "../set-modal/set-modal-api";
 import copy from "copy-text-to-clipboard";
 import { ProgressCallback } from "@sethealth/core";
+import { goal } from "../../utils";
 
 export interface AlertOptions {
   title: string;
@@ -23,6 +24,7 @@ export const createAlertModal = async (
     styles,
     render: (_, forceUpdate) => {
       const onClick = async () => {
+        goal("Get share link");
         uploading = true;
         forceUpdate();
         linkUrl = await shareLink((value) => {
