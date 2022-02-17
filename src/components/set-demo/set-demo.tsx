@@ -21,9 +21,17 @@ const DEMOS = [
     title: "Covid19 pneumonia",
     description:
       "Full torax tomography of a COVID19 positive patient, showing the pneumonia caused by SARS-CoV-2",
-    image: "/assets/demos/covid19.png",
+    image: "/assets/demos/covid19-2.jpg",
     source:
-      "sethealth://meta-v1/md-5678418456739840_JLdoaPqvh9rcJmznFa4j7FPrLyP9TxlYuvanTvxx4g4=",
+      "sethealth://meta-v1/md-5675710144315392_TDeOujP6v7AbELc3lM4EXkaTLnRs5HGS13kuwtKoa44=",
+    loaded: false,
+  },
+  {
+    title: "Deviated nasal septum",
+    description: "Head tomography of a patient of a deviated nasal septum",
+    image: "/assets/demos/deviatednasal.jpg",
+    source:
+      "sethealth://meta-v1/md-5688466868273152_O9U5alWdbBGY/RB3ldTJREDAKHH8zDyhM0gG7rVFXkg=",
     loaded: false,
   },
   {

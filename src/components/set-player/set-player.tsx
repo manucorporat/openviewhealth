@@ -69,6 +69,8 @@ export class SetPlayer {
   @State() loadingText?: string;
   @State() loadingProcess = 0;
 
+  @State() shareError?: string;
+
   @Prop({ mutable: true }) sideMenu: string | undefined;
   @Prop({ mutable: true }) slicesAction: SlicesAction = "contrast";
 
@@ -178,16 +180,6 @@ export class SetPlayer {
     }
   };
 
-  private enterFullscreen = () => {
-    if (document.fullscreenEnabled) {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen({ navigationUI: "hide" });
-      } else {
-        document.exitFullscreen();
-      }
-    }
-  };
-
   private setWindowCloseWarning() {
     window.onbeforeunload = () => {
       return "Changes are not saved. Aree you sure you want to close the tab?";
@@ -206,6 +198,7 @@ export class SetPlayer {
   private onSelectionChanged = (ev: CustomEvent<ItemHandler[]>) => {
     const handlers = ev.detail.filter((i) => i.type === "med") as MedHandler[];
     this.selectedHandlers = handlers;
+    this.shareError = undefined;
     const shareButtons = Array.from(
       this.el.shadowRoot!.querySelectorAll(".share-button")
     );
@@ -269,7 +262,9 @@ export class SetPlayer {
 
   private sharePanel = async () => {
     if (this.selectedHandlers.length === 0) {
-      const browser = this.el.shadowRoot!.querySelector("set-browser");
+      this.shareError =
+        "Please select some items by clicking the circular checkbox";
+      const browser = this.el.querySelector("set-browser");
       if (browser) {
         browser.classList.add("share-failed");
         setTimeout(() => {
@@ -301,7 +296,9 @@ export class SetPlayer {
 
   private downloadImages = async () => {
     if (this.selectedHandlers.length === 0) {
-      const browser = this.el.shadowRoot!.querySelector("set-browser");
+      const browser = this.el.querySelector("set-browser");
+      this.shareError =
+        "Please select some items by clicking the circular checkbox";
       if (browser) {
         browser.classList.add("share-failed");
         setTimeout(() => {
@@ -425,21 +422,16 @@ export class SetPlayer {
           })}
         </div>
         <div class="header-bottom-buttons">
-          <button
-            onClick={() => {
-              this.selectedView = undefined;
-            }}
-            title="Show home page"
-          >
-            <set-icon name="home" />
-          </button>
-          <button
-            onClick={this.enterFullscreen}
-            class="fullscreen-button"
-            title="Toggle fullscreen mode"
-          >
-            <set-icon name="expand"></set-icon>
-          </button>
+          {this.selectedView !== undefined && (
+            <button
+              onClick={() => {
+                this.selectedView = undefined;
+              }}
+              title="Show home page"
+            >
+              <set-icon name="home" />
+            </button>
+          )}
         </div>
       </header>
     );
@@ -451,20 +443,6 @@ export class SetPlayer {
         <div class="side-menu" key="side-menu">
           <div class="section-header">
             <h2>Browser</h2>
-            <button
-              class="section-header-button"
-              onClick={this.openFolder}
-              title="Load folder"
-            >
-              <set-icon name="folder-open-outline" />
-            </button>
-            <button
-              class="section-header-button"
-              onClick={this.openFiles}
-              title="Load files"
-            >
-              <set-icon name="document-outline" />
-            </button>
           </div>
           {this.handlers.length > 0 && (
             <div class="section-header">
@@ -495,6 +473,11 @@ export class SetPlayer {
             onSetChange={this.onSelectionChanged}
             onSetClick={this.onOpenVolume}
           >
+            {this.shareError && (
+              <div slot="top" class="error-select">
+                {this.shareError}
+              </div>
+            )}
             <div slot="bottom" class="empty-buttons">
               <button class="empty-button" onClick={this.openFiles}>
                 <set-icon name="document-outline" />
@@ -779,7 +762,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
           state: {
             workspace,
             showGeometry: true,
-            showAxes: false,
+            showAxes: true,
           },
         },
         {
