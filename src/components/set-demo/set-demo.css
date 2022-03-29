@@ -20,7 +20,7 @@
 }
 
 .main-text {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .demo-page a {
@@ -177,7 +177,9 @@
 
 article {
   display: block;
-  width: 60%;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 470px;
   border: 1px solid #eaeaea;
   padding: 3px 30px 20px;
   border-radius: 4px;

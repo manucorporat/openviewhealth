@@ -75,7 +75,7 @@ export const SetDemo: FunctionalComponent<{
         <p class="main-text">
           Fully 🙈 anonymized medical imaging app built with technology not 👀
           seen before. An app anyone can use to visualise and privately share
-          X-rays 🩻 MRIs from any device 📱xz. Powered by{" "}
+          X-rays 🩻 MRIs from any device 📱. Powered by{" "}
           <a
             target="_blank"
             href="https://set.health/?utm_medium=referral&utm_source=OpenView&utm_campaign=text"
@@ -238,9 +238,11 @@ export const SetDemo: FunctionalComponent<{
         </div>
         <set-file-loader
           buttonAction="select-folder"
+          style={{
+            height: "200px",
+          }}
           class={{
             "drag-button": true,
-            "drag-button-collapse": player.handlers.length > 0,
           }}
           loadMed
           multipleSelection
@@ -282,8 +284,8 @@ export const createEmailModal = async () => {
           <div class="donated-title">
             <h1>Request full access</h1>
             <p>
-              We will send you and email with a link to unlock Openview. We take
-              this measure to reduce abuse and connect better with our users.{" "}
+              We will email you the link to get full access. We take this
+              measure to reduce abuse and connect better with our users.{" "}
               <a href="https://set.health/privacy">Privacy Policy</a>.
             </p>
             <iframe src="https://cdn.forms-content.sg-form.com/3de3165a-aaa3-11ec-81d2-760b2eb9a963" />
