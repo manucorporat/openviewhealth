@@ -13,13 +13,7 @@ export const config: Config = {
       type: 'www',
       baseUrl: 'https://openview.set.health',
       prerenderConfig: './prerendering-config.ts',
-      serviceWorker: {
-        runtimeCaching: [{
-          urlPattern: /^https:\/\/js\.set\.health\//,
-          handler: 'CacheFirst',
-        }],
-
-      }
+      serviceWorker: null
     }
   ],
   extras: {
