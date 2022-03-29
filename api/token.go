@@ -33,7 +33,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func isValidOrigin(origin string) bool {
-	if origin == "https://openview.health" {
+	if origin == "https://openview.set.health" {
 		return true
 	}
 	if strings.HasPrefix(origin, "http://localhost:") {

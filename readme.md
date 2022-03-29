@@ -1,5 +1,5 @@
 
-<a href="http://openview.health">
+<a href="http://openview.set.health">
   <img src="./src/assets/icon/setview.svg" alt="Open Health View">
 </a>
 
