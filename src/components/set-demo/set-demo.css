@@ -1,16 +1,26 @@
 .demo-page {
-  display: flex;
-  padding: 20px clamp(10px, calc(19% - 100px), 130px);
+  padding: 20px;
   box-sizing: border-box;
   font-size: 17px;
   font-weight: 300;
   line-height: 1.25;
+  width: 100%;
   height: 100%;
   flex-wrap: wrap;
   overflow-y: auto;
   overscroll-behavior: contain;
   scroll-behavior: smooth;
   user-select: text;
+}
+
+.demo-content {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.main-text {
+  font-size: 22px;
 }
 
 .demo-page a {
@@ -124,7 +134,7 @@
   margin-right: 10px;
   margin-bottom: 10px;
   flex: 1;
-  min-width: 150px;
+  min-width: 250px;
   transition: transform ease-in-out 200ms;
 }
 
@@ -162,6 +172,16 @@
   width: 100%;
   max-width: 150px;
   margin-top: 10px;
+  height: auto;
+}
+
+article {
+  display: block;
+  width: 60%;
+  border: 1px solid #eaeaea;
+  padding: 3px 30px 20px;
+  border-radius: 4px;
+  box-shadow: 0px 3px 7px #0000002b;
 }
 
 .demo-page a.help {
@@ -170,6 +190,74 @@
 
 .demo-page .disclaimer {
   font-size: 14px;
+}
+
+.cards-container > ul {
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.cards-container li {
+  display: block;
+  border-radius: 17px;
+  padding: 10px;
+  background: #ffffff;
+  flex: 1;
+  color: #2c2c2c;
+  border: 1px solid #9dc5ba;
+  box-shadow: 0px 4px 8px 0 #00000012;
+  transition: all 200ms ease-in-out;
+}
+
+.cards-container li:hover {
+  transform: translateY(-3px);
+}
+
+.cards-container li > a {
+  display: block;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.cards-container .emoji {
+  font-size: 4em;
+  display: block;
+  margin: auto;
+}
+
+.cards-container > details {
+  background: red;
+  display: block;
+}
+
+.cards-container article:not(:target) {
+  display: none;
+}
+.cards-container article:target,
+.cards-container article.selected-article {
+  display: block;
+}
+
+.lockcover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 26px;
+  background: #000000a1;
+  backdrop-filter: blur(5px) saturate(4.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.justactivated {
+  border: 6px solid #b8e22f !important;
+  border-radius: 14px !important;
 }
 
 @media only screen and (max-width: 600px) {

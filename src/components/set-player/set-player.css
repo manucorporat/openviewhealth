@@ -17,6 +17,20 @@ header {
   flex-shrink: 0;
 }
 
+.back-button {
+  width: 50px;
+  padding: 1px 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  color: inherit;
+  font-size: 24px;
+  border: 1px solid #b6e4d8;
+  border-radius: 7px;
+}
+
 .header-buttons > button,
 .header-bottom-buttons > button {
   background: transparent;
@@ -439,12 +453,44 @@ set-pane.type-custom::part(fullscreen-button) {
   border-radius: 10px;
 }
 
-.main-loading {
+.loading-toast-progress {
   box-shadow: none;
   margin: 8px 0;
   width: 100%;
   font-weight: 800;
   flex-shrink: 0;
+  --background: #303030;
+}
+
+.logo {
+  max-width: 290px;
+  height: auto;
+}
+
+.loading-modal {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10000000;
+  bottom: 0;
+  background: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-modal-content {
+  flex: 1;
+  max-width: 500px;
+}
+
+.loading-modal-progress {
+  margin: 8px 0;
+  width: 100%;
+  font-weight: 800;
+  flex-shrink: 0;
+  text-align: center;
   --background: #303030;
 }
 

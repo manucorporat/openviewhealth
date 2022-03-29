@@ -66,6 +66,7 @@ export class SetPlayer {
   @State() showToolbar = false;
   @State() selectedController?: any;
 
+  @State() loadingClass?: string;
   @State() loadingText?: string;
   @State() loadingProcess = 0;
 
@@ -76,8 +77,11 @@ export class SetPlayer {
 
   async componentWillLoad() {
     if (Build.isBrowser) {
+      const url = new URL(location.href);
+      const sideMenu =
+        window.innerWidth > 600 && url.searchParams.get("side") === "browser";
       this.showToolbar = window.innerWidth > 800;
-      this.sideMenu = window.innerWidth > 600 ? "browser" : undefined;
+      this.sideMenu = sideMenu ? "browser" : undefined;
       this.loadToken();
       await sethealth.ready();
     }
@@ -85,6 +89,7 @@ export class SetPlayer {
 
   @Method()
   async openFromSource(source: MedSource) {
+    this.loadingClass = "loading-modal";
     this.loadingText = "Loading medical images";
     this.loadingProcess = 0;
     const handler = await sethealth.med.loadFromSource(source, (p) => {
@@ -98,6 +103,7 @@ export class SetPlayer {
 
   @Method()
   async openFromID(id: string) {
+    this.loadingClass = "loading-modal";
     this.loadingText = "Loading medical images";
     this.loadingProcess = 0;
     const res = await loadPanelsFromId(id, (p) => (this.loadingProcess = p));
@@ -151,6 +157,7 @@ export class SetPlayer {
   private openFolder = async () => {
     const files = await sethealth.utils.openFiles(true, true);
     if (files.length > 0) {
+      this.loadingClass = "loading-toast";
       this.loadingText = "Loading files";
       this.loadingProcess = 0;
       const handlers = await sethealth.med.loadFromFiles(
@@ -167,6 +174,7 @@ export class SetPlayer {
   private openFiles = async () => {
     const files = await sethealth.utils.openFiles(false, true);
     if (files.length > 0) {
+      this.loadingClass = "loading-toast";
       this.loadingText = "Loading files";
       this.loadingProcess = 0;
       const handlers = await sethealth.med.loadFromFiles(
@@ -310,6 +318,7 @@ export class SetPlayer {
 
     goal("Share");
 
+    this.loadingClass = "loading-toast";
     this.loadingText = "Packing files into a ZIP...";
     const progress = await sethealth.utils.createProgress(
       (p) => (this.loadingProcess = p)
@@ -375,28 +384,41 @@ export class SetPlayer {
     await med.destroyAll();
   };
 
-  private dataImported = async () => {
+  dataImported = async () => {
     goal("Import medical data");
+    this.sideMenu = "browser";
   };
 
   private renderHeader() {
     return (
       <header>
         <div class="header-top">
-          <a
-            href="https://set.health?utm_medium=referral&utm_source=OpenView&utm_campaign=PoweredBy"
-            class="sethealth-logo"
-            title="Sethealth"
-            target="_blank"
-            rel="noopener"
-          >
-            <img
-              src="/assets/logo-small.svg"
-              alt="Sethealth logo"
-              width="462"
-              height="259"
-            />
-          </a>
+          {this.selectedView ? (
+            <button
+              class="back-button"
+              onClick={() => {
+                this.sideMenu = "browser";
+                this.selectedView = undefined;
+              }}
+            >
+              <set-icon name="arrow-back" />
+            </button>
+          ) : (
+            <a
+              href="https://set.health?utm_medium=referral&utm_source=OpenView&utm_campaign=PoweredBy"
+              class="sethealth-logo"
+              title="Sethealth"
+              target="_blank"
+              rel="noopener"
+            >
+              <img
+                src="/assets/logo-small.svg"
+                alt="Sethealth logo"
+                width="462"
+                height="259"
+              />
+            </a>
+          )}
         </div>
 
         <div class="header-buttons">
@@ -598,7 +620,7 @@ export class SetPlayer {
               })}
             </set-grid-panel>
           ) : (
-            <SetDemo player={this.el} />
+            <SetDemo player={this} />
           )}
           {hasToolbar && this.showToolbar && selectedView && (
             <>
@@ -611,19 +633,64 @@ export class SetPlayer {
     );
   }
 
+  private renderLoading() {
+    if (!this.loadingText) {
+      return null;
+    }
+    if (this.loadingClass === "loading-modal") {
+      return (
+        <div class="loading-modal">
+          <div class="loading-modal-content">
+            <img
+              class="logo"
+              src="/assets/icon/setview.svg"
+              alt="OpenView Health logo"
+              width="1693"
+              height="829"
+            />
+
+            <h1>Loading medical data</h1>
+            <h4>
+              Medical data is usage very large, might take some minutes to
+              download. Hold tight!
+            </h4>
+            <set-progress-bar
+              value={this.loadingProcess}
+              class="loading-modal-progress"
+            >
+              {Math.round(this.loadingProcess * 100)}%
+            </set-progress-bar>
+          </div>
+        </div>
+      );
+    }
+    if (this.loadingClass === "loading-modal") {
+      return (
+        <div class="loading-modal">
+          <set-progress-bar
+            value={this.loadingProcess}
+            class="loading-toast-progress"
+          >
+            {this.loadingText}
+          </set-progress-bar>
+        </div>
+      );
+    }
+    return (
+      <div class="loading-toast">
+        <set-progress-bar value={this.loadingProcess} class="main-loading">
+          {this.loadingText}
+        </set-progress-bar>
+      </div>
+    );
+  }
   render() {
     return (
       <Host onSetFocus={this.viewFocusChanged}>
         {this.renderHeader()}
         {this.renderLeftMenu()}
         {this.renderEditor()}
-        {this.loadingText && (
-          <div class="loading-toast">
-            <set-progress-bar value={this.loadingProcess} class="main-loading">
-              {this.loadingText}
-            </set-progress-bar>
-          </div>
-        )}
+        {this.renderLoading()};
         {!this.selectedView && <div innerHTML={GITHUB_LINK} />}
       </Host>
     );
