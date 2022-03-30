@@ -29,6 +29,8 @@ import { createAlertModal } from "./alert";
 import { goal, reactiveMedia } from "../../utils";
 import * as sethealth from "@sethealth/core";
 import { SetDemo } from "../set-demo/set-demo";
+import { createModal } from "../set-modal/set-modal-api";
+import styles from "./alert.css";
 
 interface PanelView {
   id: string;
@@ -171,6 +173,68 @@ export class SetPlayer {
     }
   };
 
+  private openFromURL = async () => {
+    let url = "";
+    let type = "dicom";
+    const modal = await createModal({
+      type: "alert",
+      styles,
+      render: (resolve) => {
+        const downloadImage = async () => {
+          resolve(undefined);
+          this.loadingClass = "loading-modal";
+          this.loadingText = "Loading medical images from URL";
+          this.loadingProcess = 0;
+
+          const handlers = await sethealth.med.loadFromSource(
+            {
+              input: url,
+              type: type as any,
+            },
+            (p) => (this.loadingProcess = p)
+          );
+
+          if (handlers.value && handlers.value.length > 0) {
+            this.dataImported();
+          }
+          this.loadingText = undefined;
+        };
+        return (
+          <div class="alert-container">
+            <div class="title">
+              <h1>Load external medical image</h1>
+            </div>
+            <p>
+              <label>
+                Image type:
+                <select onInput={(ev: any) => (type = ev.target.value)}>
+                  <option selected>dicom</option>
+                  <option>nifty</option>
+                  <option>nrrd</option>
+                </select>
+              </label>
+            </p>
+            <p>
+              URL:{" "}
+              <label>
+                <input
+                  type="url"
+                  onInput={(ev: any) => (url = ev.target.value)}
+                  placeholder="https://example.com/images.zip"
+                />
+              </label>
+            </p>
+            <button class="share-btn" onClick={downloadImage}>
+              <set-icon name="cloud-download" />
+              Load image
+            </button>
+          </div>
+        );
+      },
+    });
+    return modal.onDismiss;
+  };
+
   private openFiles = async () => {
     const files = await sethealth.utils.openFiles(false, true);
     if (files.length > 0) {
@@ -246,7 +310,7 @@ export class SetPlayer {
       workspaces,
       {
         bucket: {
-          med: "bu-5643105772503040",
+          med: "bu-5750410832773120",
           geometry: "bu-5631652369793024",
         },
         anonymize: {
@@ -508,6 +572,11 @@ export class SetPlayer {
               <button class="empty-button" onClick={this.openFolder}>
                 <set-icon name="folder-open-outline" />
                 Import folders
+              </button>
+
+              <button class="empty-button" onClick={this.openFromURL}>
+                <set-icon name="folder-open-outline" />
+                Import from URL
               </button>
 
               <set-file-loader
