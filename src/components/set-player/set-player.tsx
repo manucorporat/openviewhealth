@@ -720,7 +720,7 @@ export class SetPlayer {
 
             <h1>Loading medical data</h1>
             <h4>
-              Medical data is usage very large, might take some minutes to
+              Medical data is usually very large, might take some minutes to
               download. Hold tight!
             </h4>
             <set-progress-bar
