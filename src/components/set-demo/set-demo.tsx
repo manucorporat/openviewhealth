@@ -34,7 +34,7 @@ const DEMOS = [
     image: "/assets/demos/covid19-2.jpg",
     locked: true,
     source:
-      "sethealth://meta-v1/md-5675710144315392_TDeOujP6v7AbELc3lM4EXkaTLnRs5HGS13kuwtKoa44=",
+      "sethealth://meta-v1/md-5734253702676480_whBTn88pEmwLunJdaX6becWoo2zpbxIx2VjRhKFwkRc=",
   },
   {
     title: "Deviated nasal septum",

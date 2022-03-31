@@ -36,6 +36,7 @@ interface PanelView {
   id: string;
   title: string;
   hasToolbar: boolean;
+  ref: string | undefined;
   components: {
     type: string;
     state: ViewState;
@@ -91,6 +92,15 @@ export class SetPlayer {
 
   @Method()
   async openFromSource(source: MedSource) {
+    let ref: string | undefined = undefined;
+    if (typeof source.input === "string") {
+      ref = source.input;
+      const found = this.views.find((v) => v.ref === source.input);
+      if (found) {
+        this.selectedView = found;
+        return;
+      }
+    }
     this.loadingClass = "loading-modal";
     this.loadingText = "Loading medical images";
     this.loadingProcess = 0;
@@ -98,13 +108,18 @@ export class SetPlayer {
       this.loadingProcess = p;
     });
     if (!handler.error) {
-      await this.openMed(handler.value[0]);
+      await this.openMed(handler.value[0], ref);
     }
     this.loadingText = undefined;
   }
 
   @Method()
   async openFromID(id: string) {
+    const found = this.views.find((v) => v.ref === id);
+    if (found) {
+      this.selectedView = found;
+      return;
+    }
     this.loadingClass = "loading-modal";
     this.loadingText = "Loading medical images";
     this.loadingProcess = 0;
@@ -130,20 +145,21 @@ export class SetPlayer {
   async open(id: string) {
     const handler = await sethealth.med.get(id);
     if (handler) {
-      await this.openMed(handler);
+      await this.openMed(handler, undefined);
     }
   }
 
   async loadToken() {
     try {
-      const token = await (
-        await fetch("https://openview.set.health/api/token", { method: "POST" })
-      ).json();
-      await sethealth.auth.setAccessToken(token.token);
+      const res = await fetch("https://openview.set.health/api/token", {
+        method: "POST",
+      });
+      const json = await res.json();
+      await sethealth.auth.setAccessToken(json.token);
     } catch (e) {
       console.error(e);
     }
-    const hash = location.hash.substr(1);
+    const hash = location.hash.slice(1);
     if (hash !== "") {
       const params = new URLSearchParams(hash);
       const panelId = params.get("id");
@@ -260,7 +276,7 @@ export class SetPlayer {
 
   private onOpenVolume = (ev: CustomEvent<ItemHandler>) => {
     if (ev.detail.type === "med") {
-      this.openMed(ev.detail);
+      this.openMed(ev.detail, undefined);
       if (isMobile.matches) {
         this.sideMenu = undefined;
       }
@@ -280,11 +296,11 @@ export class SetPlayer {
     }, 300);
   };
 
-  private openMed = async (handler: MedHandler) => {
+  private openMed = async (handler: MedHandler, ref: string | undefined) => {
     const workspaces = handler.getWorkspaces().map((w) => w.id);
     let selectedView = this.views.find((v) => workspaces.includes(v.id));
     if (!selectedView) {
-      selectedView = await createView(handler);
+      selectedView = await createView(handler, ref);
       this.views = [...this.views, selectedView];
     }
     this.selectedView = selectedView;
@@ -297,7 +313,7 @@ export class SetPlayer {
         const workspaces = handler.getWorkspaces().map((w) => w.id);
         let selectedView = this.views.find((v) => workspaces.includes(v.id));
         if (!selectedView) {
-          selectedView = await createView(handler);
+          selectedView = await createView(handler, undefined);
         }
         return selectedView;
       })
@@ -798,7 +814,7 @@ const loadPanelsFromId = async (
     return res;
   }
 
-  const panels = await loadPanelVersion3(res.value, getImagesProgress);
+  const panels = await loadPanelVersion3(res.value, panelId, getImagesProgress);
   progress.end();
   return panels;
 };
@@ -818,6 +834,7 @@ interface Version3 {
 
 const loadPanelVersion3 = async (
   state: Version3,
+  ref: string,
   onProgress: ProgressCallback
 ): AsyncResult<PanelView[]> => {
   const res = await sethealth.workspace.loadFromSerialization(
@@ -830,6 +847,7 @@ const loadPanelVersion3 = async (
   const value = state.views.map((view) => {
     const v: PanelView = {
       id: view.id,
+      ref,
       hasToolbar: view.components.some((c) => c.type === "set-view-slices"),
       components: view.components,
       title: view.title,
@@ -846,7 +864,10 @@ const isWorkspace3D = (workspace?: Workspace) => {
   return z > 40;
 };
 
-const createView = async (handler: MedHandler): Promise<PanelView> => {
+const createView = async (
+  handler: MedHandler,
+  ref: string | undefined
+): Promise<PanelView> => {
   const workspace = await sethealth.workspace.create(handler);
   const isTouch = matchMedia("(any-hover: none)").matches;
 
@@ -855,6 +876,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
       id: workspace.id,
       title: handler.description!,
       hasToolbar: false,
+      ref,
       components: [
         {
           type: "set-view-report",
@@ -869,6 +891,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
       id: workspace.id,
       title: handler.description!,
       hasToolbar: true,
+      ref,
       components: [
         {
           type: "set-view-slices",
@@ -884,6 +907,7 @@ const createView = async (handler: MedHandler): Promise<PanelView> => {
       id: workspace.id,
       title: handler.description!,
       hasToolbar: true,
+      ref,
       components: [
         {
           type: "set-view-slices",
