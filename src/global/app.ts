@@ -1,4 +1,5 @@
 import { initialize } from "@sethealth/core";
+import { goal } from "../utils";
 
 let activated = false;
 
@@ -14,6 +15,7 @@ export function isJustActivated() {
 export default () => {
   if (isJustActivated()) {
     activated = true;
+    goal("Unlocked app");
     localStorage.setItem("openview-activated", "true");
   } else {
     activated = localStorage.getItem("openview-activated") === "true";

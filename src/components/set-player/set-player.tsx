@@ -211,7 +211,8 @@ export class SetPlayer {
           );
 
           if (handlers.value && handlers.value.length > 0) {
-            this.dataImported();
+            goal("Import medical data URL");
+            this.sideMenu = "browser";
           }
           this.loadingText = undefined;
         };
@@ -465,7 +466,7 @@ export class SetPlayer {
   };
 
   dataImported = async () => {
-    goal("Import medical data");
+    goal("Import medical data FS");
     this.sideMenu = "browser";
   };
 
