@@ -78,7 +78,7 @@ export const SetDemo: FunctionalComponent<{
           X-rays 🩻 MRIs from any device 📱. Powered by{" "}
           <a
             target="_blank"
-            href="https://set.health/?utm_medium=referral&utm_source=OpenView&utm_campaign=text"
+            href="https://set.health/contact?utm_medium=referral&utm_source=OpenView&utm_campaign=text"
           >
             Sethealth
           </a>
