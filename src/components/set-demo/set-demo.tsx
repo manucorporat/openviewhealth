@@ -81,7 +81,7 @@ export const SetDemo: FunctionalComponent<{
           height="829"
         />
         <p class="main-text">
-          Fully 🙈 anonymized medical imaging app built with technology not 👀
+          Fully 🙈 anonymized medical imaging app built with technology never 👀
           seen before. An app anyone can use to visualise and privately share
           X-rays 🩻 MRIs from any device 📱. Powered by{" "}
           <a
