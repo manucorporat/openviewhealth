@@ -408,12 +408,20 @@ export class SetPlayer {
       const files: FileResource[] = [];
       let i = 0;
       for (const handler of this.selectedHandlers) {
-        const format = location.search.includes("format=nrrd")
-          ? "nrrd"
-          : "original";
-        const { data, extension } = await handler.serialize(
+        const pixel = await handler.volume?.filter([
           {
-            format: format,
+            type: "clamp",
+            min: 5,
+            clampLowerValue: 0,
+            max: 1000,
+            clampUpperValue: 1000,
+          },
+          { type: "median" },
+        ]);
+        const transformed = await pixel?.getMed()!;
+        const { data, extension } = await transformed.serialize(
+          {
+            format: "nrrd",
             anonymize: false,
           },
           progress.source()

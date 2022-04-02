@@ -36,13 +36,21 @@ const DEMOS = [
     source:
       "sethealth://meta-v1/md-5734253702676480_whBTn88pEmwLunJdaX6becWoo2zpbxIx2VjRhKFwkRc=",
   },
+  // {
+  //   title: "Deviated nasal septum",
+  //   description: "Head tomography of a patient of a deviated nasal septum",
+  //   image: "/assets/demos/deviatednasal.jpg",
+  //   locked: true,
+  //   source:
+  //     "sethealth://meta-v1/md-5688466868273152_O9U5alWdbBGY/RB3ldTJREDAKHH8zDyhM0gG7rVFXkg=",
+  // },
   {
-    title: "Deviated nasal septum",
-    description: "Head tomography of a patient of a deviated nasal septum",
-    image: "/assets/demos/deviatednasal.jpg",
+    title: "Brain cavernoma",
+    description: "Head tomography of a patient of a cavernoma",
+    image: "/assets/demos/cavernoma.png",
     locked: true,
     source:
-      "sethealth://meta-v1/md-5688466868273152_O9U5alWdbBGY/RB3ldTJREDAKHH8zDyhM0gG7rVFXkg=",
+      "sethealth://meta-v1/md-5714577987731456_uqQlfhlOMSh/JtQYfCTkAFX22n9FlJu9y/yzeSu3uFs=",
   },
   {
     title: "Manix",
