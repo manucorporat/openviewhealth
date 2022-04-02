@@ -408,9 +408,12 @@ export class SetPlayer {
       const files: FileResource[] = [];
       let i = 0;
       for (const handler of this.selectedHandlers) {
+        const format = location.search.includes("format=nrrd")
+          ? "nrrd"
+          : "original";
         const { data, extension } = await handler.serialize(
           {
-            format: "original",
+            format: format,
             anonymize: false,
           },
           progress.source()
