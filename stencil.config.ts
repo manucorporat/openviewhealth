@@ -11,7 +11,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
-      baseUrl: 'https://openview.set.health',
+      baseUrl: 'https://openview.health',
       prerenderConfig: './prerendering-config.ts',
       serviceWorker: null
     }

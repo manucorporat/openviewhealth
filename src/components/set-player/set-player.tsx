@@ -151,7 +151,7 @@ export class SetPlayer {
 
   async loadToken() {
     try {
-      const res = await fetch("https://openview.set.health/api/token", {
+      const res = await fetch("https://openview.health/api/token", {
         method: "POST",
       });
       const json = await res.json();
