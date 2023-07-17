@@ -327,7 +327,7 @@ export class SetPlayer {
       workspaces,
       {
         bucket: {
-          med: "bu-5750410832773120",
+          med: "bu-5748563258638336",
           geometry: "bu-5631652369793024",
         },
         anonymize: {
